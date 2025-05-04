@@ -12,9 +12,10 @@ const ITEMS_PER_PAGE = 12;
 const MAX_RETRIES = 2;
 
 const OptimizedUserList: React.FC = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation(["users", "common"]);
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredUsers, setFilteredUsers] = useState<User[]>([]);
+  const [allUsers, setAllUsers] = useState<User[]>([]);
   const [visibleUsers, setVisibleUsers] = useState<User[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [hasMorePages, setHasMorePages] = useState(true);
@@ -52,14 +53,12 @@ const OptimizedUserList: React.FC = () => {
       result.sort((a, b) => {
         if (sortField === "name") {
           return sortDirection === "asc"
-            ? a.name.localeCompare(b.name)
-            : b.name.localeCompare(a.name);
+            ? (a.name || "").localeCompare(b.name || "")
+            : (b.name || "").localeCompare(a.name || "");
         } else {
-          return sortDirection === "asc"
-            ? new Date(a.created_at).getTime() -
-                new Date(b.created_at).getTime()
-            : new Date(b.created_at).getTime() -
-                new Date(a.created_at).getTime();
+          const dateA = a.created_at ? new Date(a.created_at).getTime() : 0;
+          const dateB = b.created_at ? new Date(b.created_at).getTime() : 0;
+          return sortDirection === "asc" ? dateA - dateB : dateB - dateA;
         }
       });
 
@@ -73,12 +72,17 @@ const OptimizedUserList: React.FC = () => {
     setLoading(true);
     setError(false);
     setErrorMessage(null);
+    setApiError(null);
 
     api
       .getUsers({ page: 1, limit: ITEMS_PER_PAGE * 2 })
       .then((response) => {
-        if (response?.users && Array.isArray(response.users)) {
-          setFilteredUsers(sortAndFilterUsers(response.users));
+        if (response.status === "success") {
+          const users = response.users || [];
+          setAllUsers(users);
+          const sortedUsers = sortAndFilterUsers(users);
+          setFilteredUsers(sortedUsers);
+          setVisibleUsers(sortedUsers.slice(0, ITEMS_PER_PAGE));
 
           // Check if there are more pages based on pagination info
           if (response.pagination) {
@@ -86,21 +90,36 @@ const OptimizedUserList: React.FC = () => {
               response.pagination.page < response.pagination.pages
             );
             setCurrentPage(response.pagination.page);
+          } else {
+            setHasMorePages(users.length >= ITEMS_PER_PAGE * 2);
           }
+        } else {
+          // Handle error in response
+          setError(true);
+          setErrorMessage(
+            response.message || t("failedToLoad", "Failed to load users")
+          );
+          setApiError(
+            response.message || t("failedToLoad", "Failed to load users")
+          );
+          setFilteredUsers([]);
+          setVisibleUsers([]);
         }
-        setApiError(null);
+
         setRetryCount(0);
         setLoading(false);
       })
       .catch((err) => {
-        console.error(t("users.errorLoading", "Error loading users:"), err);
+        console.error(t("errorLoading", "Error loading users:"), err);
         const errorMsg =
           err instanceof Error
             ? err.message
-            : t("users.failedToLoad", "Failed to load users");
+            : t("failedToLoad", "Failed to load users");
         setApiError(errorMsg);
         setErrorMessage(errorMsg);
         setError(true);
+        setFilteredUsers([]);
+        setVisibleUsers([]);
         setLoading(false);
 
         // Only retry a limited number of times
@@ -121,11 +140,29 @@ const OptimizedUserList: React.FC = () => {
     api
       .getUsers({ page: nextPage, limit: ITEMS_PER_PAGE })
       .then((response) => {
-        if (response?.users && Array.isArray(response.users)) {
-          setFilteredUsers((prev) => [
-            ...prev,
-            ...sortAndFilterUsers(response.users || []),
-          ]);
+        if (response.status === "success" && Array.isArray(response.users)) {
+          const newUsers = response.users || [];
+
+          // Add new users to our full list
+          setAllUsers((prev) => {
+            const combinedUsers = [...prev];
+            // Avoid duplicates by checking IDs
+            newUsers.forEach((newUser) => {
+              if (
+                !combinedUsers.some(
+                  (existingUser) => existingUser.id === newUser.id
+                )
+              ) {
+                combinedUsers.push(newUser);
+              }
+            });
+            return combinedUsers;
+          });
+
+          // Update filtered and visible users
+          setFilteredUsers((prev) =>
+            sortAndFilterUsers([...prev, ...newUsers])
+          );
 
           // Update pagination state
           if (response.pagination) {
@@ -134,51 +171,67 @@ const OptimizedUserList: React.FC = () => {
             );
             setCurrentPage(response.pagination.page);
           } else {
-            setHasMorePages(false);
+            setHasMorePages(newUsers.length >= ITEMS_PER_PAGE);
           }
+        } else {
+          // No more pages or error
+          setHasMorePages(false);
         }
+
         setIsLoadingMore(false);
       })
       .catch((err) => {
-        console.error(
-          t("users.errorLoadingMore", "Error loading more users:"),
-          err
-        );
+        console.error(t("errorLoadingMore", "Error loading more users:"), err);
         setIsLoadingMore(false);
+        setHasMorePages(false);
       });
   }, [currentPage, hasMorePages, isLoadingMore, sortAndFilterUsers, t]);
+
+  // Apply search and sorting to all users whenever these criteria change
+  useEffect(() => {
+    const sorted = sortAndFilterUsers(allUsers);
+    setFilteredUsers(sorted);
+    setPage(1); // Reset to first page when sorting or filtering changes
+    setVisibleUsers(sorted.slice(0, ITEMS_PER_PAGE));
+  }, [searchQuery, sortField, sortDirection, allUsers, sortAndFilterUsers]);
 
   // Load initial data on mount
   useEffect(() => {
     loadInitialUsers();
   }, [loadInitialUsers]);
 
+  // Update visible users when page changes
   useEffect(() => {
     setVisibleUsers(filteredUsers.slice(0, page * ITEMS_PER_PAGE));
   }, [filteredUsers, page]);
 
+  // Handle scrolling for infinite scroll
   const handleScroll = useCallback(() => {
     if (listRef.current) {
       const { scrollTop, scrollHeight, clientHeight } = listRef.current;
       if (scrollTop + clientHeight >= scrollHeight - 200) {
         if (visibleUsers.length >= filteredUsers.length && hasMorePages) {
           loadMoreUsers();
-        } else {
+        } else if (visibleUsers.length < filteredUsers.length) {
           setPage((prev) => prev + 1);
         }
       }
     }
   }, [filteredUsers.length, hasMorePages, loadMoreUsers, visibleUsers.length]);
 
+  // Add scroll listener
   useEffect(() => {
     const currentListRef = listRef.current;
     currentListRef?.addEventListener("scroll", handleScroll);
     return () => currentListRef?.removeEventListener("scroll", handleScroll);
   }, [handleScroll]);
 
+  // Input handlers
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setSearchQuery(e.target.value);
+
   const handleClearSearch = () => setSearchQuery("");
+
   const handleSortChange = (field: "name" | "created_at") => {
     if (sortField === field) {
       setSortDirection((prev) => (prev === "asc" ? "desc" : "asc"));
@@ -188,14 +241,20 @@ const OptimizedUserList: React.FC = () => {
     }
   };
 
+  // Refresh handler
   const handleRefresh = () => {
     setApiError(null);
     setRetryCount(0);
     setError(false);
     setErrorMessage(null);
+    setAllUsers([]);
+    setFilteredUsers([]);
+    setVisibleUsers([]);
+    setPage(1);
     loadInitialUsers();
   };
 
+  // Loading state
   if (loading && !visibleUsers.length) {
     return (
       <div className="container mx-auto px-4 py-8">
@@ -217,6 +276,7 @@ const OptimizedUserList: React.FC = () => {
     );
   }
 
+  // Error state
   if ((error || apiError) && !visibleUsers.length) {
     return (
       <div className="container mx-auto px-4 py-8">
@@ -230,12 +290,12 @@ const OptimizedUserList: React.FC = () => {
         />
         <Alert
           variant="error"
-          className="mb-4"
           message={
             apiError ||
             errorMessage ||
             t("userList.error", "Failed to load users")
           }
+          className="mb-4"
         />
         <div className="flex justify-center">
           <Button onClick={handleRefresh} icon={FiRefreshCw}>
@@ -246,6 +306,7 @@ const OptimizedUserList: React.FC = () => {
     );
   }
 
+  // Main component
   return (
     <div className="container mx-auto px-4 py-8">
       <PageHeader
@@ -345,20 +406,49 @@ const OptimizedUserList: React.FC = () => {
 
       {filteredUsers.length === 0 && (
         <div className="flex justify-center">
-          <EmptyState title={t("userList.noUsers", "No users found")} />
+          <EmptyState
+            title={
+              searchQuery
+                ? t("userList.noResults", "No results found")
+                : t("userList.noUsers", "No users found")
+            }
+          />
         </div>
       )}
 
       <div
         ref={listRef}
-        className="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
+        className="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 overflow-auto max-h-[calc(100vh-300px)]"
       >
         {visibleUsers.map((user) => (
           <Link to={`/users/${user.id}`} key={user.id}>
-            <OptimizedUserCard user={user} />
+            <OptimizedUserCard
+              user={user}
+              compact
+              apiUrl={api.getServerUrl()}
+            />
           </Link>
         ))}
       </div>
+
+      {isLoadingMore && (
+        <div className="flex justify-center items-center mt-4 pb-4">
+          <Spinner size="md" />
+          <span className="ml-2 text-gray-600">
+            {t("userList.loading", "Loading users...")}
+          </span>
+        </div>
+      )}
+
+      {!isLoadingMore &&
+        hasMorePages &&
+        visibleUsers.length === filteredUsers.length && (
+          <div className="flex justify-center mt-4 pb-4">
+            <Button variant="secondary" onClick={loadMoreUsers}>
+              {t("userList.loadMore", "Load More")}
+            </Button>
+          </div>
+        )}
     </div>
   );
 };

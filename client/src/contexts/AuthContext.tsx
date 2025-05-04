@@ -1,4 +1,5 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 // Define user type
 export interface User {
@@ -46,6 +47,7 @@ const DEMO_USERS: User[] = [
 
 // Auth provider component
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const { t } = useTranslation('auth');
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -60,14 +62,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           setUser(JSON.parse(storedUser));
         }
       } catch (error) {
-        console.error('Error checking authentication:', error);
+        console.error(t('errors.checkingAuth', 'Error checking authentication:'), error);
       } finally {
         setIsLoading(false);
       }
     };
 
     checkAuth();
-  }, []);
+  }, [t]);
 
   // Login function
   const login = async (username: string, password: string) => {
@@ -86,11 +88,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         setUser(foundUser);
         localStorage.setItem('user', JSON.stringify(foundUser));
       } else {
-        throw new Error('Invalid username or password');
+        throw new Error(t('errors.invalidCredentials', 'Invalid username or password'));
       }
     } catch (error) {
-      setError(error instanceof Error ? error.message : 'An error occurred during login');
-      console.error('Login error:', error);
+      setError(error instanceof Error ? error.message : t('errors.generic', 'An error occurred during login'));
+      console.error(t('errors.loginFailed', 'Login error:'), error);
     } finally {
       setIsLoading(false);
     }
@@ -129,7 +131,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (context === undefined) {
-    throw new Error('useAuth must be used within an AuthProvider');
+    throw new Error(useTranslation().t('auth:errors.hookUsage', 'useAuth must be used within an AuthProvider'));
   }
   return context;
 };

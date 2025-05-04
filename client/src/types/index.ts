@@ -9,6 +9,7 @@ export interface User {
   face_id?: string;
   image_url?: string;
   image_path?: string;
+  image?: string;
 }
 
 // Face analysis types

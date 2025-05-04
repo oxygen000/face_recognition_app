@@ -1,0 +1,15 @@
+{
+  "about": "About the App",
+  "privacy": "Privacy Policy",
+  "terms": "Terms and Conditions",
+  "supervision": "Supervision",
+  "supervisor": "Colonel / Mohamed Magdy Hassanein",
+  "development": "Development",
+  "developer": "Engineer / Abdul Hamid Reda",
+  "apiStatus": "API:",
+  "checking": "Checking...",
+  "connected": "Connected",
+  "disconnected": "Disconnected",
+  "lastChecked": "Last checked:",
+  "appName": "Smart ID Face"
+} 

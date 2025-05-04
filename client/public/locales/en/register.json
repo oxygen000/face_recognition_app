@@ -1,0 +1,57 @@
+{
+    "title": "Register New Face",
+    "description": "Complete the form below to register a new face in the system. Please upload a clear image with a single face.",
+    "form": {
+      "name": "Your Name:",
+      "namePlaceholder": "Enter your name",
+      "photo": "Your Photo:",
+      "photoDesc": "Please select a clear photo of your face. Only one face should be visible in the image.",
+      "preview": "Preview:",
+      "employeeId": "Employee ID:",
+      "employeeIdPlaceholder": "Enter employee ID",
+      "department": "Department:",
+      "departmentPlaceholder": "Enter department",
+      "role": "Role:",
+      "rolePlaceholder": "Enter role",
+      "submit": "Register Face",
+      "processing": "Processing...",
+      "fullName": "Full Name",
+      "fullNamePlaceholder": "Enter full name",
+      "childName": "Child's Name",
+      "childNamePlaceholder": "Enter child's name",
+      "guardianName": "Guardian's Name",
+      "guardianNamePlaceholder": "Enter guardian's name",
+      "switchToChild": "Switch to Child",
+      "switchToAdult": "Switch to Adult",
+      "switchToMan": "Switch to Adult",
+      "capturePhoto": "Capture Photo",
+      "retakePhoto": "Retake photo",
+      "retake": "Retake Photo",
+      "switchCamera": "Switch Camera",
+      "uploadPhoto": "Upload Photo",
+      "useMultiAngle": "Train with multiple angles (Recommended)"
+    },
+    "success": "Successfully registered {{name}} in the system!",
+    "error": {
+      "name": "Please enter your name",
+      "nameRequired": "Name is required",
+      "guardianRequired": "Guardian name is required",
+      "photoRequired": "Please capture or upload a photo",
+      "image": "Please select an image",
+      "webcamNotAvailable": "Webcam is not available",
+      "failed": "Registration failed. Please try again.",
+      "unknown": "An unknown error occurred",
+      "general": "Failed to register face. Please try a different image."
+    },
+    "newspaper": {
+      "intro": "The Face Registration process allows users to securely register their face biometrics for fast and contactless identification. This technology uses advanced neural networks to create a unique facial signature.",
+      "benefits": "Benefits of face registration include enhanced security, faster identification, and a convenient authentication method without the need for passwords or ID cards.",
+      "formTitle": "Register Your Face",
+      "privacy": "Your privacy is our priority. All facial data is encrypted and stored securely in compliance with global data protection regulations."
+    },
+    "method": {
+      "webcam": "Use Webcam",
+      "upload": "Upload Photo"
+    }
+  }
+  

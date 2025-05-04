@@ -11,7 +11,7 @@ import {
 } from "react-icons/fi";
 import { User } from "../../types";
 import type { UserStatus } from "./types";
-import {  Badge, Tooltip, Button } from "../common";
+import { Badge, Tooltip, Button } from "../common";
 import {
   formatDate,
   formatRelativeTime,
@@ -84,13 +84,30 @@ const OptimizedUserCard: React.FC<UserCardProps> = memo(
   }) => {
     // Cast user to ExtendedUser to access extended properties
     const userExtended = user as ExtendedUser;
-    const { t } = useTranslation();
+    const { t } = useTranslation("users");
 
     // Memoized values - ensures these computations only run when dependencies change
     const userImageUrl = useMemo(
       () => getUserImageUrl(userExtended, apiUrl),
       [userExtended, apiUrl]
     );
+
+    // Fix for potential undefined values in user object
+    const userName = useMemo(
+      () => userExtended.name || t("userCard.unknownName", "Unknown User"),
+      [userExtended.name, t]
+    );
+
+    const userRole = useMemo(
+      () => userExtended.role || "",
+      [userExtended.role]
+    );
+
+    const userDepartment = useMemo(
+      () => userExtended.department || "",
+      [userExtended.department]
+    );
+
     const activityStatus = useMemo(
       () => getUserActivityStatus(userExtended),
       [userExtended]
@@ -140,19 +157,25 @@ const OptimizedUserCard: React.FC<UserCardProps> = memo(
             <div className="relative">
               <img
                 src={userImageUrl}
-                alt={userExtended.name}
-                className="mr-3 w-10 h-10 rounded-full"
+                alt={userName}
+                className="mr-3 w-10 h-10 rounded-full object-cover"
+                onError={(e) => {
+                  // Set a default image if loading fails
+                  (
+                    e.target as HTMLImageElement
+                  ).src = `${apiUrl}/static/default-avatar.png`;
+                }}
               />
             </div>
 
             <div className="min-w-0 flex-1">
               <h3 className="text-base font-semibold text-gray-900 truncate">
-                {userExtended.name}
+                {userName}
               </h3>
               <div className="flex items-center flex-wrap gap-1">
-                {userExtended.role && (
+                {userRole && (
                   <Badge variant="primary" size="sm" rounded>
-                    {userExtended.role}
+                    {userRole}
                   </Badge>
                 )}
                 {userExtended.status && (
@@ -172,26 +195,26 @@ const OptimizedUserCard: React.FC<UserCardProps> = memo(
             {(onEdit || onDelete) && (
               <div className="flex ml-2 space-x-1">
                 {onEdit && (
-                  <Tooltip content={t("userCard.edit", "Edit")}>
+                  <Tooltip content={t("edit", "Edit")}>
                     <Button
                       variant="ghost"
                       size="sm"
                       icon={FiEdit2}
                       onClick={handleEdit}
-                      aria-label={t("userCard.edit", "Edit")}
+                      aria-label={t("edit", "Edit")}
                     >
                       {""}
                     </Button>
                   </Tooltip>
                 )}
                 {onDelete && (
-                  <Tooltip content={t("userCard.delete", "Delete")}>
+                  <Tooltip content={t("delete", "Delete")}>
                     <Button
                       variant="ghost"
                       size="sm"
                       icon={FiTrash2}
                       onClick={handleDelete}
-                      aria-label={t("userCard.delete", "Delete")}
+                      aria-label={t("delete", "Delete")}
                     >
                       {""}
                     </Button>
@@ -217,26 +240,26 @@ const OptimizedUserCard: React.FC<UserCardProps> = memo(
         {(onEdit || onDelete) && (
           <div className="bg-gray-50 px-4 py-2 flex justify-end border-b border-gray-100">
             {onEdit && (
-              <Tooltip content={t("userCard.edit", "Edit")}>
+              <Tooltip content={t("edit", "Edit")}>
                 <Button
                   variant="ghost"
                   size="sm"
                   icon={FiEdit2}
                   onClick={handleEdit}
-                  aria-label={t("userCard.edit", "Edit")}
+                  aria-label={t("edit", "Edit")}
                 >
                   {""}
                 </Button>
               </Tooltip>
             )}
             {onDelete && (
-              <Tooltip content={t("userCard.delete", "Delete")}>
+              <Tooltip content={t("delete", "Delete")}>
                 <Button
                   variant="ghost"
                   size="sm"
                   icon={FiTrash2}
                   onClick={handleDelete}
-                  aria-label={t("userCard.delete", "Delete")}
+                  aria-label={t("delete", "Delete")}
                 >
                   {""}
                 </Button>
@@ -251,15 +274,21 @@ const OptimizedUserCard: React.FC<UserCardProps> = memo(
           <div className="relative">
             <img
               src={userImageUrl}
-              alt={userExtended.name}
-              className="ring-2 ring-gray-100 w-20 h-20 rounded-full"
+              alt={userName}
+              className="ring-2 ring-gray-100 w-20 h-20 rounded-full object-cover"
+              onError={(e) => {
+                // Set a default image if loading fails
+                (
+                  e.target as HTMLImageElement
+                ).src = `${apiUrl}/static/default-avatar.png`;
+              }}
             />
           </div>
 
           {/* User info */}
           <div className="flex-1 text-center md:text-left min-w-0">
             <h3 className="text-lg font-semibold text-gray-900 mb-1 truncate">
-              {userExtended.name}
+              {userName}
               {userExtended.employee_id && (
                 <span className="text-sm font-normal text-gray-500 ml-2">
                   ({userExtended.employee_id})
@@ -269,14 +298,14 @@ const OptimizedUserCard: React.FC<UserCardProps> = memo(
 
             {/* User badges */}
             <div className="flex flex-wrap justify-center md:justify-start gap-2 mb-3">
-              {userExtended.role && (
+              {userRole && (
                 <Badge variant="primary" rounded>
-                  {userExtended.role}
+                  {userRole}
                 </Badge>
               )}
-              {userExtended.department && (
+              {userDepartment && (
                 <Badge variant="success" rounded>
-                  {userExtended.department}
+                  {userDepartment}
                 </Badge>
               )}
               {userExtended.status && (

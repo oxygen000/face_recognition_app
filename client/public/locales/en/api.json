@@ -1,0 +1,26 @@
+{
+    "status": {
+      "title": "API Status",
+      "connected": "Connected",
+      "disconnected": "Disconnected",
+      "checking": "Checking connection...",
+      "responseTime": "Response time",
+      "lastChecked": "Last checked",
+      "endpoint": "Endpoint",
+      "check": "Check Now",
+      "firstEndpointFailed": "First health endpoint failed, trying alternative...",
+      "secondEndpointFailed": "Second health endpoint failed, trying final alternative...",
+      "allEndpointsFailed": "All API health check attempts failed:",
+      "defaultVersion": "v1.0",
+      "error": "API connection error",
+      "success": "API connected successfully"
+    },
+    "errors": {
+      "notFound": "Resource not found",
+      "serverError": "Server error",
+      "unauthorized": "Unauthorized access",
+      "badRequest": "Bad request",
+      "timeout": "Request timed out"
+    }
+  }
+  

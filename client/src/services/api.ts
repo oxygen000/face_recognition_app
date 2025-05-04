@@ -498,7 +498,9 @@ const api = {
    * @param {number} options.limit - Number of items per page
    * @returns {Promise<UserListResponse>} User list response
    */
-  getUsers: async (options = { page: 1, limit: 100 }): Promise<UserListResponse> => {
+  getUsers: async (
+    options = { page: 1, limit: 100 }
+  ): Promise<UserListResponse> => {
     try {
       console.log("Calling getUsers API endpoint");
 
@@ -511,10 +513,14 @@ const api = {
         limit: options.limit.toString(),
       });
 
-      const response = await apiClient.get(`${SERVER_URL}/api/users?${params.toString()}`, {
-        signal: controller.signal,
-        timeout: 20000,
-      });
+      // Use getEndpointPath for consistent path formatting
+      const response = await axios.get(
+        getEndpointPath(`/users?${params.toString()}`),
+        {
+          signal: controller.signal,
+          timeout: 20000,
+        }
+      );
 
       clearTimeout(timeoutId);
 
@@ -522,6 +528,11 @@ const api = {
 
       // Simple normalization to ensure users array exists
       const responseData = response.data || {};
+
+      if (!responseData.users && Array.isArray(responseData.data)) {
+        // Support both response formats (users or data)
+        responseData.users = responseData.data;
+      }
 
       if (!responseData.users || !Array.isArray(responseData.users)) {
         console.warn("Response missing users array, creating empty array");
@@ -564,13 +575,11 @@ const api = {
   getUserById: async (userId: string): Promise<ApiResponse<User>> => {
     try {
       console.log(`Fetching user with ID: ${userId}`);
-      // Use the correct API endpoint from the backend
-      const response = await apiClient.get(
-        getEndpointPath(`/api/users/${userId}`),
-        {
-          timeout: 10000,
-        }
-      );
+
+      // Use the correct API endpoint with consistent path formatting
+      const response = await axios.get(getEndpointPath(`/users/${userId}`), {
+        timeout: 10000,
+      });
 
       // Log the response for debugging
       console.log(`User API response status:`, response.status);
@@ -583,14 +592,27 @@ const api = {
         responseData.status = "success";
       }
 
-      // If the response has a user field but no data field, add the data field
+      // Support both response formats (user or data property)
       if (responseData.user && !responseData.data) {
         responseData.data = responseData.user;
+      } else if (responseData.data && !responseData.user) {
+        responseData.user = responseData.data;
       }
 
       return responseData;
     } catch (error) {
       console.error(`Error getting user ${userId}:`, error);
+
+      // Check if it's an API error with response data
+      if (axios.isAxiosError(error) && error.response?.data) {
+        const responseData = error.response.data;
+        return {
+          status: "error",
+          message:
+            responseData.message || `Failed to fetch user with ID ${userId}`,
+          ...responseData,
+        };
+      }
 
       // Return a formatted error response
       return {
@@ -629,13 +651,34 @@ const api = {
     try {
       console.log(`Deleting user with ID: ${userId}`);
       // Use the correct API endpoint from the backend
-      const response = await apiClient.delete(
-        getEndpointPath(`/api/users/${userId}`)
-      );
+      const response = await axios.delete(getEndpointPath(`/users/${userId}`));
+
       console.log(`Delete user API response:`, response.status);
-      return response.data;
+
+      // Normalize response data
+      const responseData = response.data || {};
+      if (!responseData.status) {
+        responseData.status = "success";
+      }
+
+      if (!responseData.message) {
+        responseData.message = "User deleted successfully";
+      }
+
+      return responseData;
     } catch (error) {
       console.error(`Error deleting user ${userId}:`, error);
+
+      // Check if it's an API error with response data
+      if (axios.isAxiosError(error) && error.response?.data) {
+        const responseData = error.response.data;
+        return {
+          status: "error",
+          message:
+            responseData.message || `Failed to delete user with ID ${userId}`,
+          ...responseData,
+        };
+      }
 
       // Return a formatted error response
       return {

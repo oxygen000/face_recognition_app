@@ -7,7 +7,7 @@ import axios from "axios";
  * Shows version information and response time metrics
  */
 const ApiStatus: React.FC = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation(["footer", "api"]);
   const [status, setStatus] = useState<
     "connected" | "disconnected" | "checking"
   >("checking");
@@ -29,7 +29,7 @@ const ApiStatus: React.FC = () => {
         } catch {
           console.log(
             t(
-              "api.status.firstEndpointFailed",
+              "api:status.firstEndpointFailed",
               "First health endpoint failed, trying alternative..."
             )
           );
@@ -38,7 +38,7 @@ const ApiStatus: React.FC = () => {
           } catch {
             console.log(
               t(
-                "api.status.secondEndpointFailed",
+                "api:status.secondEndpointFailed",
                 "Second health endpoint failed, trying final alternative..."
               )
             );
@@ -53,7 +53,7 @@ const ApiStatus: React.FC = () => {
         if (response.data && response.status === 200) {
           setStatus("connected");
           setApiVersion(
-            response.data.version || t("api.status.defaultVersion", "v1.0")
+            response.data.version || t("api:status.defaultVersion", "v1.0")
           );
 
           if (response.data.server) {
@@ -65,7 +65,7 @@ const ApiStatus: React.FC = () => {
       } catch (error) {
         console.error(
           t(
-            "api.status.allEndpointsFailed",
+            "api:status.allEndpointsFailed",
             "All API health check attempts failed:"
           ),
           error
@@ -91,7 +91,7 @@ const ApiStatus: React.FC = () => {
     <div className="flex justify-center items-center py-4">
       <div className="flex flex-col sm:flex-row items-center gap-2">
         <span className="text-sm text-gray-600 mr-2">
-          {t("footer.apiStatus", "API:")}
+          {t("footer:apiStatus", "API:")}
         </span>
 
         {/* Checking status */}
@@ -99,7 +99,7 @@ const ApiStatus: React.FC = () => {
           <span className="flex items-center">
             <span className="h-2 w-2 bg-yellow-400 rounded-full mr-1"></span>
             <span className="text-sm text-gray-600">
-              {t("footer.checking", "Checking...")}
+              {t("footer:checking", "Checking...")}
             </span>
           </span>
         )}
@@ -109,7 +109,7 @@ const ApiStatus: React.FC = () => {
           <span className="flex items-center">
             <span className="h-2 w-2 bg-green-500 rounded-full mr-1"></span>
             <span className="text-sm text-gray-600">
-              {t("footer.connected", "Connected")}
+              {t("footer:connected", "Connected")}
               {apiVersion && <span className="ml-1">({apiVersion})</span>}
               {responseTime && (
                 <span className="text-xs text-gray-500 ml-1">
@@ -125,7 +125,7 @@ const ApiStatus: React.FC = () => {
           <span className="flex items-center">
             <span className="h-2 w-2 bg-red-500 rounded-full mr-1"></span>
             <span className="text-sm text-gray-600">
-              {t("footer.disconnected", "Disconnected")}
+              {t("footer:disconnected", "Disconnected")}
             </span>
           </span>
         )}
@@ -140,7 +140,7 @@ const ApiStatus: React.FC = () => {
         {/* Last checked time */}
         {lastChecked && (
           <span className="text-xs text-gray-500 ml-2">
-            {t("footer.lastChecked", "Last checked:")}{" "}
+            {t("footer:lastChecked", "Last checked:")}{" "}
             {lastChecked.toLocaleTimeString()}
           </span>
         )}

@@ -1,0 +1,44 @@
+{
+    "title": "Recognize Face",
+    "description": "Upload a photo or take a snapshot to identify a registered person.",
+    "uploadImage": "Upload Image",
+    "useWebcam": "Use Webcam",
+    "multiCapture": "Multi Capture",
+    "uploadPhoto": "Upload Photo:",
+    "takeSnapshot": "Take Snapshot",
+    "preview": "Preview:",
+    "submitButton": "Recognize Face",
+    "submit": "Submit",
+    "processing": "Processing...",
+    "result": {
+      "title": "Face Recognized!",
+      "name": "Name:",
+      "id": "Employee ID:",
+      "department": "Department:",
+      "role": "Role:",
+      "confidence": "Confidence:"
+    },
+    "error": {
+      "title": "Error",
+      "noImage": "Please select an image or take a snapshot",
+      "notRecognized": "Face not recognized",
+      "general": "Failed to process the image",
+      "webcamNotReady": "Webcam is not ready. Please try again.",
+      "captureFailure": "Failed to capture image from webcam"
+    },
+    "newspaper": {
+      "intro": "Our state-of-the-art facial recognition system can identify registered users in seconds with remarkable accuracy. The system works by comparing facial features to those stored in our secure database.",
+      "tryItSection": "Try Face Recognition",
+      "technology": "The technology uses over 100 facial landmarks to create a unique digital signature of each face, making it highly accurate even under varying lighting conditions or when facial accessories are worn.",
+      "accuracy": "In recent tests, our system demonstrated a 99.7% accuracy rate, with near-instant recognition times averaging less than 200 milliseconds per identification."
+    },
+    "capture": "Capture",
+    "retake": "Retake",
+    "webcamCapture": "Webcam Capture",
+    "capturing": "Capturing...",
+    "captureMultiple": "Capture Multiple Photos",
+    "captureNumber": "Capture {{number}}",
+    "multiCaptureReady": "Multiple captures ready",
+    "multiCaptureHint": "Multiple angle captures improve recognition accuracy. Click submit to process all captures."
+  }
+  

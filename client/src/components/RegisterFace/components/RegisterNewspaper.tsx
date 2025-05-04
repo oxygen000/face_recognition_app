@@ -25,7 +25,7 @@ const RegisterPage: React.FC = () => {
           {isWebcamMode ? t("register.useUpload") : t("register.useWebcam")}
         </button>
       </div>
-      {isWebcamMode ? <WebcamForm /> : <UploadForm />}
+      {isWebcamMode ? <WebcamForm /> : <UploadForm /> }
     </div>
   );
 };

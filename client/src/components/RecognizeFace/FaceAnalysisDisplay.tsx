@@ -26,7 +26,6 @@ const FaceAnalysisDisplay: React.FC<FaceAnalysisDisplayProps> = React.memo(({ re
 
   const { user } = result;
 
-  // استخدام دالة getUserImageUrl للحصول على رابط الصورة
   const imageUrl = user ? getUserImageUrl(user, apiUrl) : undefined;
 
   return (

@@ -8,8 +8,14 @@ import { BrowserRouter } from "react-router-dom";
 import NextToploader from "nextjs-toploader";
 import LoadingFallback from "./components/LoadingFallback";
 
+// Get root element
+const rootElement = document.getElementById("root");
 
-createRoot(document.getElementById("root")!).render(
+if (!rootElement) {
+  throw new Error("Root element not found");
+}
+
+createRoot(rootElement).render(
   <StrictMode>
     <Suspense fallback={<LoadingFallback />}>
       <BrowserRouter>
@@ -19,7 +25,7 @@ createRoot(document.getElementById("root")!).render(
           showSpinner={false}
           shadow="0 0 10px #1958df"
         />
-        <App /> 
+        <App />
       </BrowserRouter>
     </Suspense>
   </StrictMode>

@@ -13,23 +13,23 @@ import {
 import UserMenu from "../components/UserMenu";
 
 const Navbar: React.FC = () => {
-  const { t, i18n } = useTranslation();
+  const { t, i18n } = useTranslation(["nav", "app"]);
   const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navLinks = [
-    { name: t("nav.dashboard", "Dashboard"), path: "/", icon: FiHome },
+    { name: t("nav:dashboard", "Dashboard"), path: "/", icon: FiHome },
     {
-      name: t("nav.recognize", "Recognize"),
+      name: t("nav:recognize", "Recognize"),
       path: "/recognize",
       icon: FiCamera,
     },
     {
-      name: t("nav.register", "Register"),
+      name: t("nav:register", "Register"),
       path: "/register-face",
       icon: FiUserPlus,
     },
-    { name: t("nav.users", "Users"), path: "/users", icon: FiUsers },
+    { name: t("nav:users", "Users"), path: "/users", icon: FiUsers },
   ];
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
@@ -91,8 +91,8 @@ const Navbar: React.FC = () => {
           </ul>
           <div className="text-end">
             <h1 className="text-lg font-black text-blue-900 leading-5">
-              {t("app.ministry", "وزارة الداخلية")} <br />
-              {t("app.country", "جمهورية مصر العربية")}
+              {t("app:ministry", "وزارة الداخلية")} <br />
+              {t("app:country", "جمهورية مصر العربية")}
             </h1>
           </div>
         </div>
@@ -102,19 +102,16 @@ const Navbar: React.FC = () => {
       <nav className="bg-white shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16 items-center">
-            {/* Logo title */}
             <div className="flex items-center">
               <Link to="/" className="text-xl font-bold text-blue-600">
-                {t("app.name", "Face Recognition")}
+                {t("app:name", "Face Recognition")}
               </Link>
             </div>
 
-            {/* Desktop links */}
             <div className="hidden sm:flex space-x-4 ml-6">
               {navLinks.map((link) => renderLink(link))}
             </div>
 
-            {/* Right controls */}
             <div className="flex items-center space-x-2">
               <button
                 className="hidden sm:inline-flex p-2 rounded-md text-gray-500 hover:text-gray-900 hover:bg-gray-100 focus:outline-none"
@@ -127,7 +124,6 @@ const Navbar: React.FC = () => {
                 <UserMenu />
               </div>
 
-              {/* Mobile menu toggle */}
               <div className="sm:hidden">
                 <button
                   onClick={toggleMenu}
@@ -144,7 +140,6 @@ const Navbar: React.FC = () => {
           </div>
         </div>
 
-        {/* Mobile menu */}
         {isMenuOpen && (
           <div className="sm:hidden px-4 pt-4 pb-6 border-t border-gray-200 space-y-2">
             <div className="border-b pb-2 mb-2">
@@ -162,8 +157,8 @@ const Navbar: React.FC = () => {
             >
               <FiGlobe className="mr-3 h-5 w-5" />
               {i18n.language === "en"
-                ? t("nav.switchToArabic", "Switch to Arabic")
-                : t("nav.switchToEnglish", "Switch to English")}
+                ? t("nav:switchToArabic", "Switch to Arabic")
+                : t("nav:switchToEnglish", "Switch to English")}
             </button>
           </div>
         )}

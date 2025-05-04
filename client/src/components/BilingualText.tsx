@@ -1,9 +1,10 @@
 import React from "react";
-import { useTranslation } from "react-i18next";
+import { useTranslation, TOptions } from "react-i18next";
 
 interface BilingualTextProps {
   textKey: string;
-  values?: Record<string, string>;
+  ns?: string;
+  values?: TOptions;
   className?: string;
   separator?: string;
   showBothLanguages?: boolean;
@@ -16,18 +17,19 @@ interface BilingualTextProps {
  */
 const BilingualText: React.FC<BilingualTextProps> = ({
   textKey,
+  ns,
   values = {},
   className = "",
   separator = " / ",
   showBothLanguages = true,
 }) => {
-  const { t, i18n } = useTranslation();
+  const { t, i18n } = useTranslation(ns);
   const direction = i18n.dir();
   const isBilingual = showBothLanguages;
 
   // Get translations for both languages
-  const enText = i18n.getFixedT("en")(textKey, values);
-  const arText = i18n.getFixedT("ar")(textKey, values);
+  const enText = i18n.getFixedT("en", ns)(textKey, values);
+  const arText = i18n.getFixedT("ar", ns)(textKey, values);
 
   // If bilingual mode is disabled, just show the current language
   if (!isBilingual) {
@@ -39,18 +41,18 @@ const BilingualText: React.FC<BilingualTextProps> = ({
 
   // In bilingual mode, we show both languages
   return (
-    <span className={`bilingual-text ${className}`}>
+    <span className={`bilingual-text ${className}`} dir="auto">
       {direction === "ltr" ? (
         <>
           <span className="en">{enText}</span>
           <span className={`separator mx-1 ${secondaryTextClass}`}>{separator}</span>
-          <span className={`ar ${secondaryTextClass} text-sm`}>{arText}</span>
+          <span className={`ar ${secondaryTextClass} text-sm`} dir="rtl">{arText}</span>
         </>
       ) : (
         <>
           <span className="ar">{arText}</span>
           <span className={`separator mx-1 ${secondaryTextClass}`}>{separator}</span>
-          <span className={`en ${secondaryTextClass} text-sm`}>{enText}</span>
+          <span className={`en ${secondaryTextClass} text-sm`} dir="ltr">{enText}</span>
         </>
       )}
     </span>

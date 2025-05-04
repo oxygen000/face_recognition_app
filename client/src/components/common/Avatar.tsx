@@ -9,6 +9,7 @@ export interface AvatarProps {
   className?: string;
   initials?: string;
   onClick?: () => void;
+  src?: string;
 }
 
 const Avatar: React.FC<AvatarProps> = ({
@@ -18,6 +19,7 @@ const Avatar: React.FC<AvatarProps> = ({
   className = "",
   initials,
   onClick,
+  src,
 }) => {
   const sizeClasses = {
     xs: "h-6 w-6 text-xs",
@@ -54,6 +56,12 @@ const Avatar: React.FC<AvatarProps> = ({
     rounded ? "rounded-full" : "rounded-md",
     className,
   ].join(" ");
+
+  if (src) {
+    return (
+      <img src={src} alt={alt} className={avatarClasses} onClick={onClick} />
+    );
+  }
 
   return (
     <div className={avatarClasses} onClick={onClick}>

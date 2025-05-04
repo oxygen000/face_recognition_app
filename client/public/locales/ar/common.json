@@ -1,0 +1,32 @@
+{
+    "mockDataWarning": "ملاحظة: يتم عرض بيانات نموذجية. اتصل بـ API للحصول على البيانات الحقيقية.",
+    "error": {
+      "failed": "فشل تحميل البيانات",
+      "apiError": "فشل الاتصال بالـ API"
+    },
+    "dateUnknown": "تاريخ غير معروف",
+    "dateInvalid": "تاريخ غير صالح",
+    "dateError": "خطأ في التاريخ",
+    "loading": "جاري التحميل...",
+    "authChecking": "جاري التحقق من المصادقة...",
+    "dismiss": "إغلاق",
+    "processing": "جاري المعالجة...",
+    "removeImage": "إزالة الصورة",
+    "selectImage": "اختر صورة",
+    "imageFormats": "PNG, JPG, JPEG",
+    "upTo": "حتى",
+    "noData": "لا توجد بيانات متاحة",
+    "loadMore": "تحميل المزيد",
+    "retry": "إعادة المحاولة",
+    "back": "عودة",
+    "success": "نجاح",
+    "warning": "تحذير",
+    "info": "معلومات",
+    "submit": "إرسال",
+    "cancel": "إلغاء",
+    "save": "حفظ",
+    "delete": "حذف",
+    "edit": "تعديل",
+    "search": "بحث"
+  }
+  

@@ -1,31 +1,74 @@
-import React, { useState, useRef, useCallback } from "react";
+import React, { useState, useRef, useCallback, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import Webcam from "react-webcam";
 import api from "../../services/api";
 import { RecognizeResponse } from "../../types";
-import ImagePreview from "../common/ImagePreview";
-import FaceAnalysisDisplay from "./FaceAnalysisDisplay";
+import CaptureModeButtons from "./CaptureModeButtons";
+import WebcamCapture from "./WebcamCapture";
+import FileUpload from "./FileUpload";
+import FaceRecognitionResults from "./FaceRecognitionResults";
+import ErrorDisplay from "./ErrorDisplay";
+import { getUserImageUrl } from "../users/utils/formatters";
+import { Link } from "react-router-dom";
 
 const RecognizeFace: React.FC = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation("recognize");
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<RecognizeResponse | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-  const [captureMode, setCaptureMode] = useState<"upload" | "webcam">("upload");
-  const [cameraFacingMode, setCameraFacingMode] = useState<
-    "user" | "environment"
-  >("user");
+  const [captureMode, setCaptureMode] = useState<"upload" | "webcam" | "multi">(
+    "upload"
+  );
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [apiError, setApiError] = useState<string | null>(null);
+  const [multiCaptures, setMultiCaptures] = useState<string[]>([]);
 
-  const webcamRef = useRef<Webcam>(null);
+  const webcamRef = useRef<Webcam | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const videoConstraints = {
     width: 500,
     height: 375,
-    facingMode: cameraFacingMode,
+    facingMode: "user",
   };
+
+  useEffect(() => {
+    if (captureMode === "multi" && !webcamRef.current) {
+      setCaptureMode("multi");
+    }
+  }, [captureMode]);
+
+  const captureMultiple = useCallback(() => {
+    if (!webcamRef.current) {
+      setApiError(
+        t("error.webcamNotReady", "Webcam is not ready. Please try again.")
+      );
+      return;
+    }
+
+    const captures: string[] = [];
+    setMultiCaptures([]);
+    setResult(null);
+    setApiError(null);
+
+    const takeSnapshot = (index: number) => {
+      const imageSrc = webcamRef.current?.getScreenshot();
+      if (imageSrc) {
+        captures.push(imageSrc);
+        setMultiCaptures([...captures]);
+      } else {
+        setApiError(
+          t("error.captureFailure", "Failed to capture image from webcam")
+        );
+      }
+
+      if (index < 2) {
+        setTimeout(() => takeSnapshot(index + 1), 1000);
+      }
+    };
+
+    takeSnapshot(0);
+  }, [t]);
 
   const handleImageChange = (
     file: File | null,
@@ -37,19 +80,129 @@ const RecognizeFace: React.FC = () => {
     setApiError(null);
   };
 
-  const captureFromWebcam = useCallback(() => {
-    if (webcamRef.current && !previewUrl) {
-      const imageSrc = webcamRef.current.getScreenshot();
-      if (imageSrc) {
-        setPreviewUrl(imageSrc);
-        setResult(null);
-        setApiError(null);
-      }
-    }
-  }, [webcamRef, previewUrl]);
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setApiError(null);
 
-  const toggleCamera = () => {
-    setCameraFacingMode((prev) => (prev === "user" ? "environment" : "user"));
+    try {
+      setLoading(true);
+
+      // Handle different capture modes
+      if (captureMode === "multi" && multiCaptures.length > 0) {
+        // Process multiple captures for better recognition
+        const results: RecognizeResponse[] = [];
+        let bestMatch: RecognizeResponse | null = null;
+
+        // Process each capture
+        for (const capture of multiCaptures) {
+          const imageFile = dataURLtoFile(
+            capture,
+            `webcam-capture-${Date.now()}.jpg`
+          );
+
+          const response = await api.recognizeFace(imageFile, {
+            useMultiAngle: true,
+            preferMethod: "base64",
+          });
+
+          const typedResponse: RecognizeResponse = {
+            ...response,
+            recognized: !!response.recognized,
+          };
+
+          results.push(typedResponse);
+
+          // Track the best match (highest confidence)
+          if (
+            typedResponse.recognized &&
+            typedResponse.confidence &&
+            (!bestMatch ||
+              !bestMatch.confidence ||
+              typedResponse.confidence > bestMatch.confidence)
+          ) {
+            bestMatch = typedResponse;
+          }
+        }
+
+        // Use the best match as the result
+        if (bestMatch) {
+          setResult(bestMatch);
+        } else {
+          // No matches found in any of the captures
+          setResult({
+            status: "error",
+            recognized: false,
+            message: t(
+              "error.notRecognized",
+              "Face not recognized in any of the captures"
+            ),
+          });
+        }
+      } else {
+        // Handle single image recognition (upload or webcam)
+        let imageFile: File | null = null;
+
+        if (captureMode === "upload" && selectedFile) {
+          imageFile = selectedFile;
+        } else if (previewUrl) {
+          imageFile = dataURLtoFile(
+            previewUrl,
+            `webcam-capture-${Date.now()}.jpg`
+          );
+        } else {
+          setApiError(
+            t("error.noImage", "Please capture or upload an image first")
+          );
+          setLoading(false);
+          return;
+        }
+
+        const response = await api.recognizeFace(imageFile, {
+          useMultiAngle: true,
+          preferMethod: imageFile.size > 1024 * 1024 ? "file" : "base64",
+        });
+
+        const typedResponse: RecognizeResponse = {
+          ...response,
+          recognized: !!response.recognized,
+        };
+
+        setResult(typedResponse);
+
+        if (response.status === "error") {
+          setApiError(
+            response.message || t("error.general", "Recognition failed")
+          );
+        }
+      }
+    } catch (error) {
+      setApiError(
+        error instanceof Error
+          ? error.message
+          : t("error.general", "Recognition failed")
+      );
+      setResult({
+        status: "error",
+        recognized: false,
+        message:
+          error instanceof Error
+            ? error.message
+            : t("error.general", "Recognition failed"),
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const resetState = () => {
+    setPreviewUrl(null);
+    setSelectedFile(null);
+    setResult(null);
+    setApiError(null);
+    setMultiCaptures([]);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
   };
 
   const dataURLtoFile = (dataUrl: string, filename: string): File => {
@@ -64,230 +217,165 @@ const RecognizeFace: React.FC = () => {
     return new File([u8arr], filename, { type: mime });
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setApiError(null);
-
-    try {
-      let imageFile: File | null = null;
-
-      if (captureMode === "upload") {
-        if (!selectedFile) {
-          setApiError("Please select an image first");
-          return;
-        }
-        imageFile = selectedFile;
-      } else if (previewUrl) {
-        // Use the webcam image
-        imageFile = dataURLtoFile(
-          previewUrl,
-          `webcam-capture-${Date.now()}.jpg`
-        );
-      } else {
-        setApiError("Please capture an image first");
-        return;
-      }
-
-      if (!imageFile) {
-        setApiError("No valid image found");
-        return;
-      }
-
-      setLoading(true);
-
-      // Call the API's recognizeFace method with proper options
-      const response = await api.recognizeFace(imageFile, {
-        useMultiAngle: true,
-        preferMethod: imageFile.size > 1024 * 1024 ? "file" : "base64",
-      });
-
-      console.log("Recognition response:", response);
-
-      // Ensure we have a valid RecognizeResponse with recognized: boolean always set
-      const typedResponse: RecognizeResponse = {
-        ...response,
-        recognized: !!response.recognized,
-      };
-
-      setResult(typedResponse);
-
-      if (response.status === "error") {
-        setApiError(response.message || "Recognition failed");
-      }
-    } catch (error) {
-      console.error("Recognition error:", error);
-      setApiError(
-        error instanceof Error ? error.message : "Recognition failed"
-      );
-
-      // Create a properly typed error response
-      const errorResponse: RecognizeResponse = {
-        status: "error",
-        recognized: false,
-        message: error instanceof Error ? error.message : "Recognition failed",
-      };
-
-      setResult(errorResponse);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const resetState = () => {
-    setPreviewUrl(null);
-    setSelectedFile(null);
-    setResult(null);
-    setApiError(null);
-    if (fileInputRef.current) {
-      fileInputRef.current.value = "";
-    }
-  };
-
   return (
     <div className="max-w-4xl mx-auto">
       <div className="bg-white rounded-xl shadow-lg overflow-hidden">
         <div className="bg-gradient-to-r from-blue-600 to-blue-800 px-6 py-4 text-white">
           <h1 className="text-3xl font-bold text-center">
-            {t("recognize.title", "Face Recognition")}
+            {t("title", "Face Recognition")}
           </h1>
           <h2 className="text-xl font-semibold text-center mt-2 text-blue-100">
             {t(
-              "recognize.description",
+              "description",
               "Upload a photo or take a snapshot to identify a registered person."
             )}
           </h2>
         </div>
 
         <div className="p-6">
-          <div className="flex border-b border-gray-200 mb-6">
-            <button
-              onClick={() => {
-                setCaptureMode("upload");
-                resetState();
-              }}
-              className={`py-2 px-4 font-medium ${
-                captureMode === "upload"
-                  ? "text-blue-600 border-b-2 border-blue-600"
-                  : "text-gray-500 hover:text-blue-500"
-              }`}
-            >
-              {t("recognize.uploadImage", "Upload Photo")}
-            </button>
-            <button
-              onClick={() => {
-                setCaptureMode("webcam");
-                resetState();
-              }}
-              className={`py-2 px-4 font-medium ${
-                captureMode === "webcam"
-                  ? "text-blue-600 border-b-2 border-blue-600"
-                  : "text-gray-500 hover:text-blue-500"
-              }`}
-            >
-              {t("recognize.useWebcam", "Use Webcam")}
-            </button>
-          </div>
+          <CaptureModeButtons
+            captureMode={captureMode}
+            setCaptureMode={setCaptureMode}
+            resetState={resetState}
+            t={t}
+          />
 
-          <div className="mb-8">
-            <form onSubmit={handleSubmit} className="space-y-6">
-              {captureMode === "upload" ? (
-                <ImagePreview
-                  onImageChange={handleImageChange}
-                  previewUrl={previewUrl}
-                  placeholderText={t(
-                    "recognize.uploadPhoto",
-                    "Upload a photo to recognize"
-                  )}
-                  scanText={t("recognize.scanning", "Scanning for faces...")}
-                  maxSize="10MB"
-                  allowReset={true}
-                  className="w-full"
-                />
-              ) : (
-                <div className="border-2 border-gray-300 rounded-lg p-4">
-                  <div className="flex flex-col items-center">
-                    {previewUrl ? (
-                      <div className="mb-4 flex flex-col items-center">
-                        <img
-                          src={previewUrl}
-                          alt="Captured"
-                          className="max-h-80 rounded-lg shadow-md mb-2"
-                        />
-                        <button
-                          type="button"
-                          onClick={resetState}
-                          className="mt-4 px-3 py-1.5 bg-gray-100 text-gray-800 rounded hover:bg-gray-200 text-sm"
-                        >
-                          {t("recognize.retake", "Retake Photo")}
-                        </button>
-                      </div>
-                    ) : (
-                      <div className="relative">
-                        <Webcam
-                          audio={false}
-                          ref={webcamRef}
-                          screenshotFormat="image/jpeg"
-                          videoConstraints={videoConstraints}
-                          className="rounded-lg shadow-md"
-                        />
-                        <div className="absolute bottom-4 left-0 right-0 flex justify-center space-x-2">
-                          <button
-                            type="button"
-                            onClick={toggleCamera}
-                            className="px-3 py-1.5 bg-white bg-opacity-75 rounded-full hover:bg-opacity-100 transition-all"
-                          >
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              className="h-5 w-5"
-                              viewBox="0 0 20 20"
-                              fill="currentColor"
-                            >
-                              <path
-                                fillRule="evenodd"
-                                d="M4 2a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V4a2 2 0 00-2-2H4zm9 9V7a1 1 0 10-2 0v4a1 1 0 102 0zM8 8a1 1 0 00-1 1v2a1 1 0 102 0V9a1 1 0 00-1-1z"
-                                clipRule="evenodd"
-                              />
-                            </svg>
-                          </button>
-                          <button
-                            type="button"
-                            onClick={captureFromWebcam}
-                            className="px-4 py-1.5 bg-white bg-opacity-75 rounded-full hover:bg-opacity-100"
-                            disabled={!!previewUrl}
-                          >
-                            {t("recognize.capture", "Capture")}
-                          </button>
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              )}
-
-              {apiError && <div className="text-red-600">{apiError}</div>}
-
-              <button
-                type="submit"
-                disabled={
-                  loading ||
-                  (captureMode === "webcam" && !previewUrl) ||
-                  (captureMode === "upload" && !selectedFile)
+          <form onSubmit={handleSubmit} className="space-y-6">
+            {captureMode === "upload" ? (
+              <FileUpload
+                onImageChange={handleImageChange}
+                previewUrl={previewUrl}
+                t={t}
+              />
+            ) : captureMode === "webcam" ? (
+              <WebcamCapture
+                webcamRef={webcamRef}
+                previewUrl={previewUrl}
+                videoConstraints={videoConstraints}
+                captureFromWebcam={() =>
+                  setPreviewUrl(webcamRef.current?.getScreenshot() || null)
                 }
-                className={`w-full py-3 mt-4 bg-blue-600 text-white font-semibold rounded-lg shadow-lg hover:bg-blue-500 focus:outline-none ${
-                  (loading ||
-                    (captureMode === "webcam" && !previewUrl) ||
-                    (captureMode === "upload" && !selectedFile)) &&
-                  "opacity-50 cursor-not-allowed"
-                }`}
-              >
-                {loading
-                  ? t("recognize.processing", "Processing...")
-                  : t("recognize.submit", "Submit")}
-              </button>
-            </form>
-          </div>
+                resetState={resetState}
+                t={t}
+              />
+            ) : (
+              <>
+                <div className="mb-4">
+                  <Webcam
+                    audio={false}
+                    height={375}
+                    ref={webcamRef}
+                    screenshotFormat="image/jpeg"
+                    width={500}
+                    videoConstraints={videoConstraints}
+                    className="w-full rounded-lg shadow-md mx-auto"
+                  />
+                </div>
+                <FaceRecognitionResults
+                  multiCaptures={multiCaptures}
+                  captureMultiple={captureMultiple}
+                  t={t}
+                />
+              </>
+            )}
 
-          {result && <FaceAnalysisDisplay result={result} />}
+            {apiError && <ErrorDisplay apiError={apiError} />}
+
+            {/* Display recognition results when available */}
+            {result && (
+              <div className="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
+                <h3 className="text-lg font-semibold mb-2">
+                  {result.recognized
+                    ? t("recognize.result.title", "Face Recognized!")
+                    : t("recognize.error.notRecognized", "Face not recognized")}
+                </h3>
+
+                {result.recognized && result.user && (
+                  <Link to={`/users/${result.user.id}`}>
+                    <div className="space-y-2">
+                      {/* صورة المستخدم */}
+                      <div>
+                      <img
+                        src={
+                          result.user.image ||
+                          getUserImageUrl(result.user, api.getServerUrl())
+                        }
+                        alt={result.user.name}
+                        className="w-32 h-32 object-cover rounded-full border border-gray-300 mb-2"
+                        onError={(e) => {
+                          (
+                            e.target as HTMLImageElement
+                          ).src = `${api.getServerUrl()}/static/default-avatar.png`;
+                        }}
+                      />
+                    </div>
+
+                    <p>
+                      <span className="font-medium">
+                        {t("recognize.result.name", "Name:")}
+                      </span>{" "}
+                      {result.user.name}
+                    </p>
+                    {result.user.employee_id && (
+                      <p>
+                        <span className="font-medium">
+                          {t("recognize.result.id", "Employee ID:")}
+                        </span>{" "}
+                        {result.user.employee_id}
+                      </p>
+                    )}
+                    {result.user.department && (
+                      <p>
+                        <span className="font-medium">
+                          {t("recognize.result.department", "Department:")}
+                        </span>{" "}
+                        {result.user.department}
+                      </p>
+                    )}
+                    {result.user.role && (
+                      <p>
+                        <span className="font-medium">
+                          {t("recognize.result.role", "Role:")}
+                        </span>{" "}
+                        {result.user.role}
+                      </p>
+                    )}
+                    {result.confidence && (
+                      <p>
+                        <span className="font-medium">
+                          {t("recognize.result.confidence", "Confidence:")}
+                        </span>{" "}
+                        {(result.confidence * 100).toFixed(2)}%
+                      </p>
+                    )}
+                    </div>
+                  </Link>
+                )}
+              </div>
+            )}
+
+            <button
+              type="submit"
+              disabled={
+                loading ||
+                (captureMode === "webcam" && !previewUrl) ||
+                (captureMode === "upload" && !selectedFile) ||
+                (captureMode === "multi" && multiCaptures.length === 0)
+              }
+              className={`w-full py-3 mt-4 bg-blue-600 text-white font-semibold rounded-lg shadow-lg hover:bg-blue-500 focus:outline-none ${
+                loading ||
+                (captureMode === "webcam" && !previewUrl) ||
+                (captureMode === "upload" && !selectedFile) ||
+                (captureMode === "multi" && multiCaptures.length === 0)
+                  ? "opacity-50 cursor-not-allowed"
+                  : ""
+              }`}
+            >
+              {loading
+                ? t("recognize.processing", "Processing...")
+                : t("recognize.submit", "Submit")}
+            </button>
+          </form>
         </div>
       </div>
     </div>

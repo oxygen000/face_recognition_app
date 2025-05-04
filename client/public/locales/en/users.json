@@ -1,0 +1,20 @@
+{
+  "userCard": {
+    "lastLogin": "Last login",
+    "registered": "Registered",
+    "accessLevel": "Access Level",
+    "email": "Email",
+    "phone": "Phone",
+    "department": "Department",
+    "role": "Role",
+    "employeeId": "Employee ID",
+    "status": "Status",
+    "unknownName": "Unknown User",
+    "activityStatus": {
+      "today": "Active today",
+      "recent": "Active recently",
+      "inactive": "Inactive",
+      "unknown": "Unknown status"
+    }
+  }
+} 

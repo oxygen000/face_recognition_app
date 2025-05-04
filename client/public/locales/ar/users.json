@@ -1,0 +1,20 @@
+{
+  "userCard": {
+    "lastLogin": "آخر تسجيل دخول",
+    "registered": "مسجل",
+    "accessLevel": "مستوى الوصول",
+    "email": "البريد الإلكتروني",
+    "phone": "الهاتف",
+    "department": "القسم",
+    "role": "الدور",
+    "employeeId": "رقم الموظف",
+    "status": "الحالة",
+    "unknownName": "مستخدم غير معروف",
+    "activityStatus": {
+      "today": "نشط اليوم",
+      "recent": "نشط مؤخرًا",
+      "inactive": "غير نشط",
+      "unknown": "حالة غير معروفة"
+    }
+  }
+} 

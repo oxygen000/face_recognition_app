@@ -1,0 +1,32 @@
+{
+    "mockDataWarning": "Note: Displaying sample data. Connect to API for real data.",
+    "error": {
+      "failed": "Failed to load data",
+      "apiError": "Failed to connect to API"
+    },
+    "dateUnknown": "Unknown date",
+    "dateInvalid": "Invalid date",
+    "dateError": "Date error",
+    "loading": "Loading...",
+    "authChecking": "Checking authentication...",
+    "dismiss": "Dismiss",
+    "processing": "Processing...",
+    "removeImage": "Remove Image",
+    "selectImage": "Select Image",
+    "imageFormats": "PNG, JPG, JPEG",
+    "upTo": "up to",
+    "noData": "No data available",
+    "loadMore": "Load More",
+    "retry": "Retry",
+    "back": "Back",
+    "success": "Success",
+    "warning": "Warning",
+    "info": "Information",
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "search": "Search"
+  }
+  

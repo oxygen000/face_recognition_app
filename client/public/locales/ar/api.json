@@ -1,0 +1,30 @@
+{
+    "fetchingUsers": "جاري جلب المستخدمين...",
+    "userCreated": "تم إنشاء المستخدم بنجاح",
+    "userDeleted": "تم حذف المستخدم بنجاح",
+    "errorOccurred": "حدث خطأ، يرجى المحاولة لاحقًا",
+    "status": {
+      "title": "حالة الواجهة البرمجية",
+      "connected": "متصل",
+      "disconnected": "غير متصل",
+      "checking": "جاري التحقق من الاتصال...",
+      "responseTime": "وقت الاستجابة",
+      "lastChecked": "آخر تحقق",
+      "endpoint": "نقطة النهاية",
+      "check": "تحقق الآن",
+      "firstEndpointFailed": "فشل نقطة النهاية الأولى، جاري محاولة البديل...",
+      "secondEndpointFailed": "فشل نقطة النهاية الثانية، جاري محاولة البديل النهائي...",
+      "allEndpointsFailed": "فشلت جميع محاولات التحقق من صحة API:",
+      "defaultVersion": "الإصدار 1.0",
+      "error": "خطأ في الاتصال بالـ API",
+      "success": "تم الاتصال بالـ API بنجاح"
+    },
+    "errors": {
+      "notFound": "المورد غير موجود",
+      "serverError": "خطأ في الخادم",
+      "unauthorized": "وصول غير مصرح به",
+      "badRequest": "طلب غير صالح",
+      "timeout": "انتهت مهلة الطلب"
+    }
+  }
+  

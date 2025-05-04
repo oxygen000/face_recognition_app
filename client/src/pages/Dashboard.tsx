@@ -9,14 +9,14 @@ import { FiUsers, FiCamera, FiInfo } from "react-icons/fi";
  * Serves as the main landing page with quick access to all major features
  */
 const Dashboard: React.FC = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation("dashboard");
 
   // Define the main feature cards
   const featureCards = [
     {
-      title: t("dashboard.features.register.title", "Register Face"),
+      title: t("features.register.title", "Register Face"),
       description: t(
-        "dashboard.features.register.description",
+        "features.register.description",
         "Register a new user with facial recognition"
       ),
       icon: <FiCamera className="w-8 h-8 text-blue-500" />,
@@ -25,9 +25,9 @@ const Dashboard: React.FC = () => {
       buttonColor: "bg-blue-500 hover:bg-blue-600",
     },
     {
-      title: t("dashboard.features.recognize.title", "Recognize Face"),
+      title: t("features.recognize.title", "Recognize Face"),
       description: t(
-        "dashboard.features.recognize.description",
+        "features.recognize.description",
         "Identify users with facial recognition"
       ),
       icon: <FiCamera className="w-8 h-8 text-green-500" />,
@@ -36,9 +36,9 @@ const Dashboard: React.FC = () => {
       buttonColor: "bg-green-500 hover:bg-green-600",
     },
     {
-      title: t("dashboard.features.users.title", "Manage Users"),
+      title: t("features.users.title", "Manage Users"),
       description: t(
-        "dashboard.features.users.description",
+        "features.users.description",
         "View and manage all registered users"
       ),
       icon: <FiUsers className="w-8 h-8 text-purple-500" />,
@@ -53,11 +53,11 @@ const Dashboard: React.FC = () => {
       {/* Header section */}
       <div className="mb-10 text-center">
         <h1 className="text-3xl md:text-4xl font-bold mb-4">
-          {t("dashboard.title", "Facial Recognition System")}
+          {t("title", "Facial Recognition System")}
         </h1>
         <p className="text-lg text-gray-600 max-w-3xl mx-auto">
           {t(
-            "dashboard.subtitle",
+            "subtitle",
             "Secure, fast, and reliable facial recognition for identity verification"
           )}
         </p>
@@ -75,7 +75,7 @@ const Dashboard: React.FC = () => {
                 to={card.link}
                 className={`${card.buttonColor} text-white py-2 px-4 rounded-md inline-block text-center transition-colors`}
               >
-                {t("dashboard.features.accessButton", "Access")}
+                {t("features.accessButton", "Access")}
               </Link>
             </div>
           </Card>
@@ -87,32 +87,32 @@ const Dashboard: React.FC = () => {
         <div className="flex items-center mb-4">
           <FiInfo className="w-6 h-6 text-blue-500 mr-2" />
           <h2 className="text-xl font-bold">
-            {t("dashboard.status.title", "System Status")}
+            {t("status.title", "System Status")}
           </h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="bg-green-50 p-4 rounded-md">
             <div className="font-medium text-gray-700">
-              {t("dashboard.status.api", "API Status")}
+              {t("status.api", "API Status")}
             </div>
             <div className="text-green-600 font-bold">
-              {t("dashboard.status.online", "Online")}
+              {t("status.online", "Online")}
             </div>
           </div>
           <div className="bg-blue-50 p-4 rounded-md">
             <div className="font-medium text-gray-700">
-              {t("dashboard.status.users", "Registered Users")}
+              {t("status.users", "Registered Users")}
             </div>
             <div className="text-blue-600 font-bold">
-              {t("dashboard.status.active", "Active")}
+              {t("status.active", "Active")}
             </div>
           </div>
           <div className="bg-purple-50 p-4 rounded-md">
             <div className="font-medium text-gray-700">
-              {t("dashboard.status.recognition", "Recognition Service")}
+              {t("status.recognition", "Recognition Service")}
             </div>
             <div className="text-purple-600 font-bold">
-              {t("dashboard.status.running", "Running")}
+              {t("status.running", "Running")}
             </div>
           </div>
         </div>

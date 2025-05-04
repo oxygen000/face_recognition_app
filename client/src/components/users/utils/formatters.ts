@@ -199,37 +199,43 @@ export const getInitials = (name?: string): string => {
 export const getUserImageUrl = (user: User, apiUrl?: string): string => {
   if (!user) return "";
 
-  // Default base URL if not provided
-  const baseUrl =
-    apiUrl || import.meta.env.VITE_API_URL || "http://localhost:8000";
+  try {
+    // Default base URL if not provided
+    const baseUrl =
+      apiUrl || import.meta.env.VITE_API_URL || "http://localhost:8000";
 
-  // Use user ID to fetch image from API
-  if (user.id) {
-    return `${baseUrl}/api/users/${user.id}/image`;
-  }
-
-  // Fallback to image_path or image_url if available
-  if (user.image_path) {
-    // Check if it's a full URL or a relative path
-    if (user.image_path.startsWith("http")) {
-      return user.image_path;
-    } else {
-      // Assume it's a relative path and prepend the API server URL
-      return `${baseUrl}/${user.image_path.replace(/^\//, "")}`;
+    // Use user ID to fetch image from API
+    if (user.id) {
+      return `${baseUrl}/api/users/${user.id}/image`;
     }
-  }
 
-  if (user.image_url) {
-    // Check if it's a full URL or a relative path
-    if (user.image_url.startsWith("http")) {
-      return user.image_url;
-    } else {
-      // Assume it's a relative path and prepend the API server URL
-      return `${baseUrl}/${user.image_url.replace(/^\//, "")}`;
+    // Fallback to image_path or image_url if available
+    if (user.image_path) {
+      // Check if it's a full URL or a relative path
+      if (user.image_path.startsWith("http")) {
+        return user.image_path;
+      } else {
+        // Assume it's a relative path and prepend the API server URL
+        return `${baseUrl}/${user.image_path.replace(/^\//, "")}`;
+      }
     }
-  }
 
-  return "";
+    if (user.image_url) {
+      // Check if it's a full URL or a relative path
+      if (user.image_url.startsWith("http")) {
+        return user.image_url;
+      } else {
+        // Assume it's a relative path and prepend the API server URL
+        return `${baseUrl}/${user.image_url.replace(/^\//, "")}`;
+      }
+    }
+
+    // Return default avatar if no image is available
+    return `${baseUrl}/static/default-avatar.png`;
+  } catch (error) {
+    console.error("Error generating user image URL:", error);
+    return "";
+  }
 };
 
 /**

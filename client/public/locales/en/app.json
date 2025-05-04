@@ -1,0 +1,31 @@
+{
+    "title": "Smart ID Face",
+    "home": {
+      "title": "Welcome to Face Recognition App",
+      "description": "This application allows you to register and recognize faces using AI.",
+      "registerButton": "Register New Face",
+      "recognizeButton": "Recognize Face"
+    },
+    "nav": {
+      "home": "Home",
+      "register": "Register Face",
+      "recognize": "Recognize Face",
+      "users": "Registered Users",
+      "name": "Face Recognition",
+      "loading": "Loading...",
+      "ministry": "Ministry of Interior",
+      "country": "Arab Republic of Egypt"
+    },
+    "footer": {
+      "supervision": "Supervision",
+      "supervisor": "Colonel / Mohamed Magdy Hasanein",
+      "development": "Development",
+      "developer": "Engineer / Abdelhamid Reda"
+    },
+    "userMenu": {
+      "profile": "Your Profile",
+      "settings": "Settings",
+      "signOut": "Sign out"
+    }
+  }
+  

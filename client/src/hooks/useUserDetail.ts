@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
+import { useTranslation } from "react-i18next";
 import api from "../services/api";
 import { User } from "../types";
 
@@ -7,6 +8,7 @@ import { User } from "../types";
  * @param userId - The ID of the user to fetch
  */
 function useUserDetail(userId: string | undefined) {
+  const { t } = useTranslation(["users", "common", "hooks"]);
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(false);
@@ -18,7 +20,9 @@ function useUserDetail(userId: string | undefined) {
   const fetchUser = useCallback(async () => {
     if (!userId) {
       setError(true);
-      setErrorMessage("User ID is required");
+      setErrorMessage(
+        t("hooks:errors.userDetail.idRequired", "User ID is required")
+      );
       setLoading(false);
       return;
     }
@@ -38,19 +42,31 @@ function useUserDetail(userId: string | undefined) {
           setUser(response.data as User);
         } else {
           setError(true);
-          setErrorMessage("User data not found");
+          setErrorMessage(
+            t("hooks:errors.userDetail.notFound", "User data not found")
+          );
         }
       } else {
         setError(true);
-        setErrorMessage(response.message || "Failed to fetch user details");
+        setErrorMessage(
+          response.message ||
+            t(
+              "hooks:errors.userDetail.fetchFailed",
+              "Failed to fetch user details"
+            )
+        );
       }
     } catch (err) {
       setError(true);
-      setErrorMessage(err instanceof Error ? err.message : "An error occurred");
+      setErrorMessage(
+        err instanceof Error
+          ? err.message
+          : t("common:error", "An error occurred")
+      );
     } finally {
       setLoading(false);
     }
-  }, [userId]);
+  }, [userId, t]);
 
   /**
    * Delete a user
@@ -59,7 +75,7 @@ function useUserDetail(userId: string | undefined) {
     if (!userId) {
       return {
         success: false,
-        message: "User ID is required",
+        message: t("hooks:errors.userDetail.idRequired", "User ID is required"),
       };
     }
 
@@ -68,15 +84,20 @@ function useUserDetail(userId: string | undefined) {
 
       return {
         success: response.status === "success",
-        message: response.message || "User deleted successfully",
+        message:
+          response.message ||
+          t("hooks:success.userDeleted", "User deleted successfully"),
       };
     } catch (err) {
       return {
         success: false,
-        message: err instanceof Error ? err.message : "Failed to delete user",
+        message:
+          err instanceof Error
+            ? err.message
+            : t("users:userDetail.deleteError", "Failed to delete user"),
       };
     }
-  }, [userId]);
+  }, [userId, t]);
 
   // Fetch user on mount or when userId changes
   useEffect(() => {

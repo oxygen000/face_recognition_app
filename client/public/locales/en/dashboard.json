@@ -1,0 +1,29 @@
+{
+    "title": "Facial Recognition System",
+    "subtitle": "Secure, fast, and reliable facial recognition for identity verification",
+    "features": {
+      "register": {
+        "title": "Register Face",
+        "description": "Register a new user with facial recognition"
+      },
+      "recognize": {
+        "title": "Recognize Face",
+        "description": "Identify users with facial recognition"
+      },
+      "users": {
+        "title": "Manage Users",
+        "description": "View and manage all registered users"
+      },
+      "accessButton": "Access"
+    },
+    "status": {
+      "title": "System Status",
+      "api": "API Status",
+      "users": "Registered Users",
+      "recognition": "Recognition Service",
+      "online": "Online",
+      "active": "Active",
+      "running": "Running"
+    }
+  }
+  
