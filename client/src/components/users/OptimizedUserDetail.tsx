@@ -17,7 +17,7 @@ import {
 } from "react-icons/fi";
 import { useUserDetail } from "../../hooks";
 import api from "../../services/api";
-import { Button, Alert, Card, Badge } from "../common";
+import { Button, Alert, Card } from "../common";
 
 /**
  * Format a date string into a readable format with caching
@@ -309,256 +309,244 @@ const OptimizedUserDetail: React.FC = () => {
   }
 
   return (
-    <div className="container mx-auto px-4 max-w-4xl">
-      <div className="bg-white rounded-xl shadow-lg overflow-hidden">
-        {/* Header area with gradient background */}
-        <div className="bg-gradient-to-r from-blue-600 to-blue-800 px-6 py-4 text-white">
-          <h2 className="text-2xl md:text-3xl font-bold">
-            {t("title", "User Details")}
-          </h2>
-          <p className="text-blue-100 mt-1">
-            {t("subtitle", "View detailed information about this user")}
-          </p>
+    <div className="container mx-auto px-4 max-w-5xl">
+ <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
+  {/* Header */}
+  <div className="bg-gradient-to-r from-indigo-600 to-indigo-800 px-10 py-8 text-white">
+    <h2 className="text-4xl font-extrabold">{t("title", "Profile Overview")}</h2>
+    <p className="text-indigo-200 mt-3 text-xl">{t("subtitle", "Detailed profile of the user")}</p>
+  </div>
+
+  <div className="p-10">
+    {/* User Header */}
+    <div className="flex flex-col md:flex-row items-center md:items-start mb-12">
+      <div className="mb-8 md:mb-0 md:mr-12 w-52 h-52 rounded-full bg-gray-300 overflow-hidden shadow-xl">
+        <img
+          src={userImageUrl}
+          alt={user.name}
+          className="w-full h-full object-cover"
+        />
+      </div>
+
+      <div className="text-center md:text-left flex-1">
+        <h3 className="text-4xl font-semibold text-gray-900 mb-4">{user.name}</h3>
+
+        <div className="flex flex-wrap justify-center md:justify-start gap-6 mb-8">
+          {user.role && (
+            <span className="bg-indigo-200 text-indigo-800 px-6 py-3 rounded-full text-lg font-semibold">
+              {user.role}
+            </span>
+          )}
+          {user.department && (
+            <span className="bg-green-200 text-green-800 px-6 py-3 rounded-full text-lg font-semibold">
+              {user.department}
+            </span>
+          )}
         </div>
 
-        <div className="p-6">
-          {/* User header with image and name */}
-          <div className="flex flex-col md:flex-row items-center md:items-start mb-8">
-            <div className="mb-4 md:mb-0 md:mr-6">
-              <img
-                src={userImageUrl}
-                alt={user.name}
-                className="w-32 h-32 rounded-full object-cover"
-              />
-            </div>
-
-            <div className="text-center md:text-left flex-1">
-              <h3 className="text-2xl font-bold text-gray-900 mb-2">
-                {user.name}
-              </h3>
-
-              <div className="flex flex-wrap justify-center md:justify-start gap-2 mb-4">
-                {user.role && (
-                  <Badge variant="primary" rounded>
-                    {user.role}
-                  </Badge>
-                )}
-                {user.department && (
-                  <Badge variant="success" rounded>
-                    {user.department}
-                  </Badge>
-                )}
-              </div>
-
-              <div className="mt-4 flex flex-wrap justify-center md:justify-start gap-2">
-                <Button
-                  variant="secondary"
-                  icon={FiCamera}
-                  onClick={() =>
-                    window.open(
-                      `${serverUrl}/api/users/${user.id}/image`,
-                      "_blank"
-                    )
-                  }
-                >
-                  {t("viewImage", "View Image")}
-                </Button>
-
-                <Link to={`/users/${user.id}/edit`}>
-                  <Button variant="primary" icon={FiEdit}>
-                    {t("edit", "Edit User")}
-                  </Button>
-                </Link>
-              </div>
-            </div>
-          </div>
-
-          {/* User information cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-            <Card
-              title={
-                <div className="flex items-center">
-                  <FiUser className="text-blue-500 mr-2" />
-                  <span>{t("personalInfo", "Personal Information")}</span>
-                </div>
-              }
-            >
-              <div className="space-y-4">
-                {user.employee_id && (
-                  <InfoItem
-                    label={t("info.employeeId", "Employee ID")}
-                    value={user.employee_id}
-                    icon={<FiHash />}
-                  />
-                )}
-
-                {user.department && (
-                  <InfoItem
-                    label={t("info.department", "Department")}
-                    value={user.department}
-                    icon={<FiBriefcase />}
-                  />
-                )}
-
-                {user.role && (
-                  <InfoItem
-                    label={t("info.role", "Role")}
-                    value={user.role}
-                    icon={<FiBriefcase />}
-                  />
-                )}
-
-                <InfoItem
-                  label={t("info.registrationDate", "Registration Date")}
-                  value={
-                    user.created_at
-                      ? formatDate(user.created_at)
-                      : t("common:dateUnknown", "Unknown date")
-                  }
-                  icon={<FiClock />}
-                />
-              </div>
-            </Card>
-
-            <Card
-              title={
-                <div className="flex items-center">
-                  <FiInfo className="text-blue-500 mr-2" />
-                  <span>{t("systemInfo", "System Information")}</span>
-                </div>
-              }
-            >
-              <div className="space-y-4">
-                <InfoItem
-                  label={t("info.userId", "User ID")}
-                  value={user.id}
-                  icon={<FiHash />}
-                  monospace
-                />
-
-                {user.face_id && (
-                  <InfoItem
-                    label={t("info.faceId", "Face ID")}
-                    value={user.face_id}
-                    icon={<FiHash />}
-                    monospace
-                  />
-                )}
-
-                {user.image_path && (
-                  <InfoItem
-                    label={t("info.imagePath", "Image Path")}
-                    value={user.image_path}
-                    icon={<FiHash />}
-                    monospace
-                  />
-                )}
-              </div>
-            </Card>
-          </div>
-
-          {/* Status card */}
-          <Card
-            title={
-              <div className="flex items-center">
-                <FiCheckCircle className="text-green-500 mr-2" />
-                <span>{t("status", "Status")}</span>
-              </div>
-            }
-            className="mb-8"
+        <div className="flex flex-wrap justify-center md:justify-start gap-6">
+          <Button
+            variant="secondary"
+            icon={FiCamera}
+            onClick={() => window.open(`${serverUrl}/api/users/${user.id}/image`, "_blank")}
+            className="hover:bg-indigo-600 hover:text-white transition duration-200 ease-in-out"
           >
-            <div className="flex items-center">
-              <div className="w-3 h-3 bg-green-500 rounded-full mr-2"></div>
-              <span className="text-green-700 font-medium">
-                {t("active", "Active")}
-              </span>
-            </div>
-          </Card>
-        </div>
-      </div>
-
-      {/* Action buttons */}
-      <div className="flex flex-wrap gap-3 mt-8">
-        <Button variant="secondary" icon={FiArrowLeft} onClick={handleBack}>
-          {t("common:buttons.back", "Back")}
-        </Button>
-
-        <Link to="/users">
-          <Button variant="primary" icon={FiUsers}>
-            {t("allUsers", "All Users")}
+            {t("viewImage", "View Image")}
           </Button>
-        </Link>
 
-        <div className="flex-grow"></div>
-
-        <Button
-          variant="danger"
-          icon={FiTrash2}
-          onClick={handleDelete}
-          disabled={loading || deleteLoading}
-        >
-          {t("delete", "Delete User")}
-        </Button>
-      </div>
-
-      {/* Delete confirmation */}
-      {deleteConfirmOpen && (
-        <div className="fixed inset-0 bg-black/70 bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-lg shadow-lg max-w-md w-full p-6 animate-fade-in">
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">
-              {t("deleteConfirm.title", "Confirm Deletion")}
-            </h3>
-            <p className="text-gray-600 mb-4">
-              {t(
-                "deleteConfirm.message",
-                "Are you sure you want to delete this user? This action cannot be undone."
-              )}
-            </p>
-
-            {deleteSuccess && (
-              <Alert
-                variant="success"
-                className="mb-4"
-                message={t(
-                  "deleteConfirm.success",
-                  "User deleted successfully. Redirecting..."
-                )}
-              />
-            )}
-
-            {deleteError && (
-              <Alert
-                variant="error"
-                className="mb-4"
-                message={
-                  deleteErrorMessage ||
-                  t("deleteConfirm.error", "Failed to delete user")
-                }
-              />
-            )}
-
-            <div className="flex justify-end gap-3 mt-4">
-              <Button
-                variant="secondary"
-                onClick={handleDeleteCancel}
-                disabled={deleteLoading || deleteSuccess}
-              >
-                {t("common:buttons.cancel", "Cancel")}
-              </Button>
-              <Button
-                variant="danger"
-                onClick={handleDeleteConfirm}
-                loading={deleteLoading}
-                disabled={deleteSuccess}
-              >
-                {t("common:buttons.delete", "Delete")}
-              </Button>
-            </div>
-          </div>
+          <Link to={`/users/${user.id}/edit`}>
+            <Button
+              variant="primary"
+              icon={FiEdit}
+              className="hover:bg-indigo-700 hover:text-white transition duration-200 ease-in-out"
+            >
+              {t("edit", "Edit Profile")}
+            </Button>
+          </Link>
         </div>
-      )}
+      </div>
     </div>
+
+    {/* Personal Information Section */}
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-12">
+      <Card
+        title={
+          <div className="flex items-center text-indigo-700">
+            <FiUser className="mr-4 text-2xl" />
+            <span>{t("personalInfo", "Personal Information")}</span>
+          </div>
+        }
+        className="shadow-xl"
+      >
+        <div className="space-y-6">
+          {user.employee_id && (
+            <InfoItem
+              label={t("info.employeeId", "Employee ID")}
+              value={user.employee_id}
+              icon={<FiHash />}
+            />
+          )}
+
+          {user.department && (
+            <InfoItem
+              label={t("info.department", "Department")}
+              value={user.department}
+              icon={<FiBriefcase />}
+            />
+          )}
+
+          {user.role && (
+            <InfoItem
+              label={t("info.role", "Role")}
+              value={user.role}
+              icon={<FiBriefcase />}
+            />
+          )}
+
+          <InfoItem
+            label={t("info.registrationDate", "Registration Date")}
+            value={user.created_at ? formatDate(user.created_at) : t("common:dateUnknown", "Unknown date")}
+            icon={<FiClock />}
+          />
+        </div>
+      </Card>
+
+      {/* System Information Section */}
+      <Card
+        title={
+          <div className="flex items-center text-indigo-700">
+            <FiInfo className="mr-4 text-2xl" />
+            <span>{t("systemInfo", "System Information")}</span>
+          </div>
+        }
+        className="shadow-xl"
+      >
+        <div className="space-y-6">
+          <InfoItem
+            label={t("info.userId", "User ID")}
+            value={user.id}
+            icon={<FiHash />}
+            monospace
+          />
+
+          {user.face_id && (
+            <InfoItem
+              label={t("info.faceId", "Face ID")}
+              value={user.face_id}
+              icon={<FiHash />}
+              monospace
+            />
+          )}
+
+          {user.image_path && (
+            <InfoItem
+              label={t("info.imagePath", "Image Path")}
+              value={user.image_path}
+              icon={<FiHash />}
+              monospace
+            />
+          )}
+        </div>
+      </Card>
+    </div>
+
+    {/* Status Section */}
+    <Card
+      title={
+        <div className="flex items-center text-green-700">
+          <FiCheckCircle className="mr-4 text-2xl" />
+          <span>{t("status", "Status")}</span>
+        </div>
+      }
+      className="shadow-xl mb-12"
+    >
+      <div className="flex items-center">
+        <div className="w-4 h-4 bg-green-500 rounded-full mr-4"></div>
+        <span className="text-lg text-green-700 font-semibold">{t("active", "Active")}</span>
+      </div>
+    </Card>
+  </div>
+</div>
+
+
+  {/* Action Buttons */}
+  <div className="flex flex-wrap gap-4 mt-8">
+    <Button variant="secondary" icon={FiArrowLeft} onClick={handleBack}>
+      {t("common:buttons.back", "Back")}
+    </Button>
+
+    <Link to="/users">
+      <Button variant="primary" icon={FiUsers}>
+        {t("allUsers", "All Users")}
+      </Button>
+    </Link>
+
+    <div className="flex-grow"></div>
+
+    <Button
+      variant="danger"
+      icon={FiTrash2}
+      onClick={handleDelete}
+      disabled={loading || deleteLoading}
+    >
+      {t("delete", "Delete User")}
+    </Button>
+  </div>
+
+  {/* Delete Confirm Modal */}
+  {deleteConfirmOpen && (
+    <div className="fixed inset-0 bg-black/70 flex items-center justify-center p-4 z-50">
+      <div className="bg-white rounded-lg shadow-lg max-w-md w-full p-6">
+        <h3 className="text-lg font-semibold text-gray-900 mb-3">
+          {t("deleteConfirm.title", "Confirm Deletion")}
+        </h3>
+        <p className="text-gray-600 mb-5">
+          {t(
+            "deleteConfirm.message",
+            "Are you sure you want to delete this user? This action cannot be undone."
+          )}
+        </p>
+
+        {deleteSuccess && (
+          <Alert
+            variant="success"
+            className="mb-5"
+            message={t("deleteConfirm.success", "User deleted successfully. Redirecting...")}
+          />
+        )}
+
+        {deleteError && (
+          <Alert
+            variant="error"
+            className="mb-5"
+            message={deleteErrorMessage || t("deleteConfirm.error", "Failed to delete user")}
+          />
+        )}
+
+        <div className="flex justify-end gap-3 mt-4">
+          <Button
+            variant="secondary"
+            onClick={handleDeleteCancel}
+            disabled={deleteLoading || deleteSuccess}
+          >
+            {t("common:buttons.cancel", "Cancel")}
+          </Button>
+          <Button
+            variant="danger"
+            onClick={handleDeleteConfirm}
+            loading={deleteLoading}
+            disabled={deleteSuccess}
+          >
+            {t("common:buttons.delete", "Delete")}
+          </Button>
+        </div>
+      </div>
+    </div>
+  )}
+</div>
+
   );
+  
 };
 
 export default OptimizedUserDetail;

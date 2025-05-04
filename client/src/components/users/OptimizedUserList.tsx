@@ -97,10 +97,12 @@ const OptimizedUserList: React.FC = () => {
           // Handle error in response
           setError(true);
           setErrorMessage(
-            response.message || t("failedToLoad", "Failed to load users")
+            response.message ||
+              t("users:failedToLoad", { defaultValue: "Failed to load users" })
           );
           setApiError(
-            response.message || t("failedToLoad", "Failed to load users")
+            response.message ||
+              t("users:failedToLoad", { defaultValue: "Failed to load users" })
           );
           setFilteredUsers([]);
           setVisibleUsers([]);
@@ -110,11 +112,14 @@ const OptimizedUserList: React.FC = () => {
         setLoading(false);
       })
       .catch((err) => {
-        console.error(t("errorLoading", "Error loading users:"), err);
+        console.error(
+          t("users:errorLoading", { defaultValue: "Error loading users:" }),
+          err
+        );
         const errorMsg =
           err instanceof Error
             ? err.message
-            : t("failedToLoad", "Failed to load users");
+            : t("users:failedToLoad", { defaultValue: "Failed to load users" });
         setApiError(errorMsg);
         setErrorMessage(errorMsg);
         setError(true);
@@ -181,7 +186,12 @@ const OptimizedUserList: React.FC = () => {
         setIsLoadingMore(false);
       })
       .catch((err) => {
-        console.error(t("errorLoadingMore", "Error loading more users:"), err);
+        console.error(
+          t("users:errorLoadingMore", {
+            defaultValue: "Error loading more users:",
+          }),
+          err
+        );
         setIsLoadingMore(false);
         setHasMorePages(false);
       });
@@ -259,17 +269,18 @@ const OptimizedUserList: React.FC = () => {
     return (
       <div className="container mx-auto px-4 py-8">
         <PageHeader
-          title={t("userList.title", "Registered Users")}
-          subtitle={t(
-            "userList.subtitle",
-            "View and manage all registered users"
-          )}
+          title={t("users:userList.title", {
+            defaultValue: "Registered Users",
+          })}
+          subtitle={t("users:userList.subtitle", {
+            defaultValue: "View and manage all registered users",
+          })}
           icon={FiUsers}
         />
         <div className="flex justify-center items-center h-64">
           <Spinner size="lg" />
           <span className="ml-3 text-gray-600">
-            {t("userList.loading", "Loading users...")}
+            {t("users:userList.loading", { defaultValue: "Loading users..." })}
           </span>
         </div>
       </div>
@@ -281,11 +292,12 @@ const OptimizedUserList: React.FC = () => {
     return (
       <div className="container mx-auto px-4 py-8">
         <PageHeader
-          title={t("userList.title", "Registered Users")}
-          subtitle={t(
-            "userList.subtitle",
-            "View and manage all registered users"
-          )}
+          title={t("users:userList.title", {
+            defaultValue: "Registered Users",
+          })}
+          subtitle={t("users:userList.subtitle", {
+            defaultValue: "View and manage all registered users",
+          })}
           icon={FiUsers}
         />
         <Alert
@@ -293,13 +305,13 @@ const OptimizedUserList: React.FC = () => {
           message={
             apiError ||
             errorMessage ||
-            t("userList.error", "Failed to load users")
+            t("users:userList.error", { defaultValue: "Failed to load users" })
           }
           className="mb-4"
         />
         <div className="flex justify-center">
           <Button onClick={handleRefresh} icon={FiRefreshCw}>
-            {t("userList.retry", "Retry")}
+            {t("users:userList.retry", { defaultValue: "Retry" })}
           </Button>
         </div>
       </div>
@@ -310,11 +322,10 @@ const OptimizedUserList: React.FC = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <PageHeader
-        title={t("userList.title", "Registered Users")}
-        subtitle={t(
-          "userList.subtitle",
-          "View and manage all registered users"
-        )}
+        title={t("users:userList.title", { defaultValue: "Registered Users" })}
+        subtitle={t("users:userList.subtitle", {
+          defaultValue: "View and manage all registered users",
+        })}
         icon={FiUsers}
       />
       <Card className="mb-6">
@@ -327,9 +338,9 @@ const OptimizedUserList: React.FC = () => {
               <input
                 type="text"
                 className="block w-full pl-10 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                placeholder={
-                  t("userList.searchPlaceholder", "Search users...") as string
-                }
+                placeholder={t("users:userList.searchPlaceholder", {
+                  defaultValue: "Search users...",
+                })}
                 value={searchQuery}
                 onChange={handleSearchChange}
               />
@@ -349,7 +360,9 @@ const OptimizedUserList: React.FC = () => {
                 onClick={() => handleSortChange("name")}
                 className="whitespace-nowrap"
               >
-                {t("userList.sortByName", "Sort by Name")}
+                {t("users:userList.sortByName", {
+                  defaultValue: "Sort by Name",
+                })}
                 {sortField === "name" && (
                   <span className="ml-1">
                     {sortDirection === "asc" ? "↑" : "↓"}
@@ -361,7 +374,9 @@ const OptimizedUserList: React.FC = () => {
                 onClick={() => handleSortChange("created_at")}
                 className="whitespace-nowrap"
               >
-                {t("userList.sortByDate", "Sort by Date")}
+                {t("users:userList.sortByDate", {
+                  defaultValue: "Sort by Date",
+                })}
                 {sortField === "created_at" && (
                   <span className="ml-1">
                     {sortDirection === "asc" ? "↑" : "↓"}
@@ -375,7 +390,9 @@ const OptimizedUserList: React.FC = () => {
                 icon={FiPlus}
                 className="whitespace-nowrap"
               >
-                {t("userList.registerNew", "Register New")}
+                {t("users:userList.registerNew", {
+                  defaultValue: "Register New",
+                })}
               </Button>
             </Link>
           </div>
@@ -384,13 +401,17 @@ const OptimizedUserList: React.FC = () => {
 
       <div className="flex justify-between items-center mb-4">
         <div className="text-gray-600">
-          {t("userList.showing", "Showing")} {visibleUsers.length}{" "}
-          {t("userList.of", "of")} {filteredUsers.length}{" "}
-          {t("userList.users", "users")}
+          {t("users:userList.showing", { defaultValue: "Showing" })}{" "}
+          {visibleUsers.length} {t("users:userList.of", { defaultValue: "of" })}{" "}
+          {filteredUsers.length}{" "}
+          {t("users:userList.users", { defaultValue: "users" })}
           {searchQuery && (
             <span>
               {" "}
-              {t("userList.matchingSearch", "matching")} "{searchQuery}"
+              {t("users:userList.matchingSearch", {
+                defaultValue: "matching",
+              })}{" "}
+              "{searchQuery}"
             </span>
           )}
         </div>
@@ -400,7 +421,7 @@ const OptimizedUserList: React.FC = () => {
           onClick={handleRefresh}
           className="text-gray-600"
         >
-          {t("userList.refresh", "Refresh")}
+          {t("users:userList.refresh", { defaultValue: "Refresh" })}
         </Button>
       </div>
 
@@ -409,8 +430,12 @@ const OptimizedUserList: React.FC = () => {
           <EmptyState
             title={
               searchQuery
-                ? t("userList.noResults", "No results found")
-                : t("userList.noUsers", "No users found")
+                ? t("users:userList.noResults", {
+                    defaultValue: "No results found",
+                  })
+                : t("users:userList.noUsers", {
+                    defaultValue: "No users found",
+                  })
             }
           />
         </div>
@@ -435,7 +460,7 @@ const OptimizedUserList: React.FC = () => {
         <div className="flex justify-center items-center mt-4 pb-4">
           <Spinner size="md" />
           <span className="ml-2 text-gray-600">
-            {t("userList.loading", "Loading users...")}
+            {t("users:userList.loading", { defaultValue: "Loading users..." })}
           </span>
         </div>
       )}
@@ -445,7 +470,7 @@ const OptimizedUserList: React.FC = () => {
         visibleUsers.length === filteredUsers.length && (
           <div className="flex justify-center mt-4 pb-4">
             <Button variant="secondary" onClick={loadMoreUsers}>
-              {t("userList.loadMore", "Load More")}
+              {t("users:userList.loadMore", { defaultValue: "Load More" })}
             </Button>
           </div>
         )}
