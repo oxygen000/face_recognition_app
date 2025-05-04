@@ -36,6 +36,7 @@ export interface FaceAnalysisResponse {
 
 // Import and export API response types
 export * from "./api";
+import { ApiResponse } from "./api";
 
 // Import and export client types
 export * from "./client";

@@ -14,11 +14,8 @@ export interface ApiResponse<T = unknown> {
 /**
  * User list response
  */
-export interface UserListResponse {
-  status: "success" | "error";
-  message?: string;
+export interface UserListResponse extends ApiResponse<User[]> {
   users?: User[];
-  data?: User[];
   pagination?: {
     page: number;
     limit: number;

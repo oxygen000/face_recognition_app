@@ -147,6 +147,14 @@ interface RegisterMetadata {
   bypass_angle_check?: boolean;
 }
 
+/**
+ * API health response
+ */
+interface HealthResponse extends ApiResponse {
+  version?: string | null;
+  uptime?: number | null;
+}
+
 const api = {
   /**
    * Get the base API URL
@@ -812,9 +820,9 @@ const api = {
 
   /**
    * Check API health/connectivity
-   * @returns {Promise<ApiResponse>} API health response
+   * @returns {Promise<HealthResponse>} API health response
    */
-  checkHealth: async (): Promise<ApiResponse> => {
+  checkHealth: async (): Promise<HealthResponse> => {
     try {
       // Use a direct API call to check health
       const response = await apiClient.get(getEndpointPath("/health"), {

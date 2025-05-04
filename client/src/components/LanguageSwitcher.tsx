@@ -24,7 +24,6 @@ const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({
 }) => {
   const {
     language,
-    languageName,
     nativeLanguageName,
     supportedLanguages,
     languageNames,
