@@ -1,0 +1,241 @@
+{
+  "app": {
+    "title": "Smart ID Face",
+    "home": {
+      "title": "Welcome to Face Recognition App",
+      "description": "This application allows you to register and recognize faces using AI.",
+      "registerButton": "Register New Face",
+      "recognizeButton": "Recognize Face"
+    },
+    "nav": {
+      "home": "Home",
+      "register": "Register Face",
+      "recognize": "Recognize Face",
+      "users": "Registered Users",
+      "name": "Face Recognition",
+      "loading": "Loading...",
+      "ministry": "Ministry of Interior",
+      "country": "Arab Republic of Egypt"
+    },
+    "footer": {
+      "supervision": "Supervision",
+      "supervisor": "Colonel / Mohamed Magdy Hasanein",
+      "development": "Development",
+      "developer": "Engineer / Abdelhamid Reda"
+    },
+    "userMenu": {
+      "profile": "Your Profile",
+      "settings": "Settings",
+      "signOut": "Sign out"
+    }
+  },
+  "register": {
+    "title": "Register New Face",
+    "description": "Complete the form below to register a new face in the system. Please upload a clear image with a single face.",
+    "form": {
+      "name": "Your Name:",
+      "namePlaceholder": "Enter your name",
+      "photo": "Your Photo:",
+      "photoDesc": "Please select a clear photo of your face. Only one face should be visible in the image.",
+      "preview": "Preview:",
+      "employeeId": "Employee ID:",
+      "employeeIdPlaceholder": "Enter employee ID",
+      "department": "Department:",
+      "departmentPlaceholder": "Enter department",
+      "role": "Role:",
+      "rolePlaceholder": "Enter role",
+      "submit": "Register Face",
+      "processing": "Processing..."
+    },
+    "success": "Successfully registered {{name}} in the system!",
+    "error": {
+      "name": "Please enter your name",
+      "image": "Please select an image",
+      "failed": "Registration failed. Please try again.",
+      "general": "Failed to register face. Please try a different image."
+    },
+    "newspaper": {
+      "intro": "The Face Registration process allows users to securely register their face biometrics for fast and contactless identification. This technology uses advanced neural networks to create a unique facial signature.",
+      "benefits": "Benefits of face registration include enhanced security, faster identification, and a convenient authentication method without the need for passwords or ID cards.",
+      "formTitle": "Register Your Face",
+      "privacy": "Your privacy is our priority. All facial data is encrypted and stored securely in compliance with global data protection regulations."
+    }
+  },
+  "recognize": {
+    "title": "Recognize Face",
+    "description": "Upload a photo or take a snapshot to identify a registered person.",
+    "uploadImage": "Upload Image",
+    "useWebcam": "Use Webcam",
+    "uploadPhoto": "Upload Photo:",
+    "takeSnapshot": "Take Snapshot",
+    "preview": "Preview:",
+    "submitButton": "Recognize Face",
+    "processing": "Processing...",
+    "result": {
+      "title": "Face Recognized!",
+      "name": "Name:",
+      "id": "Employee ID:",
+      "department": "Department:",
+      "role": "Role:",
+      "confidence": "Confidence:"
+    },
+    "error": {
+      "noImage": "Please select an image or take a snapshot",
+      "notRecognized": "Face not recognized",
+      "general": "Failed to process the image"
+    },
+    "newspaper": {
+      "intro": "Our state-of-the-art facial recognition system can identify registered users in seconds with remarkable accuracy. The system works by comparing facial features to those stored in our secure database.",
+      "tryItSection": "Try Face Recognition",
+      "technology": "The technology uses over 100 facial landmarks to create a unique digital signature of each face, making it highly accurate even under varying lighting conditions or when facial accessories are worn.",
+      "accuracy": "In recent tests, our system demonstrated a 99.7% accuracy rate, with near-instant recognition times averaging less than 200 milliseconds per identification."
+    }
+  },
+  "users": {
+    "title": "Registered Users",
+    "description": "View all users registered in the facial recognition system.",
+    "search": "Search by name, ID, department or role...",
+    "loading": "Loading users...",
+    "noUsers": "No users registered yet.",
+    "noMatches": "No users match your search criteria.",
+    "viewDetails": "View Details",
+    "errorLoading": "Error loading users:",
+    "errorLoadingMore": "Error loading more users:",
+    "failedToLoad": "Failed to load users",
+    "cardInfo": {
+      "id": "ID:",
+      "department": "Department:",
+      "role": "Role:",
+      "registered": "Registered:"
+    }
+  },
+  "userDetail": {
+    "title": "User Details",
+    "personalInfo": "Personal Information",
+    "systemInfo": "System Information",
+    "notFound": "User not found",
+    "loading": "Loading user details...",
+    "back": "Back",
+    "allUsers": "All Users",
+    "info": {
+      "employeeId": "Employee ID:",
+      "department": "Department:",
+      "registrationDate": "Registration Date:",
+      "userId": "User ID:",
+      "faceId": "Face ID:"
+    }
+  },
+  "common": {
+    "mockDataWarning": "Note: Displaying sample data. Connect to API for real data.",
+    "error": {
+      "failed": "Failed to load data",
+      "apiError": "Failed to connect to API"
+    },
+    "dateUnknown": "Unknown date",
+    "dateInvalid": "Invalid date",
+    "dateError": "Date error",
+    "loading": "Loading...",
+    "authChecking": "Checking authentication...",
+    "dismiss": "Dismiss",
+    "processing": "Processing...",
+    "removeImage": "Remove Image",
+    "selectImage": "Select Image",
+    "imageFormats": "PNG, JPG, JPEG",
+    "upTo": "up to"
+  },
+  "auth": {
+    "login": "Login",
+    "register": "Register",
+    "logout": "Logout",
+    "profile": "Profile",
+    "adminPanel": "Admin Panel",
+    "checking": "Checking authentication..."
+  },
+  "login": {
+    "title": "Login",
+    "description": "Sign in to your account to access the face recognition system.",
+    "form": {
+      "email": "Email",
+      "emailPlaceholder": "Enter your email",
+      "password": "Password",
+      "passwordPlaceholder": "Enter your password",
+      "submit": "Sign In",
+      "forgot":"Forgot Password"
+    },
+    "error": {
+      "allFields": "Please fill in all fields",
+      "failed": "Login failed. Please check your credentials and try again."
+    },
+    "noAccount": "Don't have an account?",
+    "registerLink": "Register here",
+    "demo": {
+      "title": "Demo Credentials",
+      "admin": "Admin:",
+      "user": "User:"
+    }
+  },
+  "profile": {
+    "title": "Your Profile",
+    "accountInfo": "Account Information",
+    "email": "Email",
+    "id": "ID",
+    "role": "Role",
+    "changePassword": "Change Password",
+    "editProfile": "Edit Profile"
+  },
+  "api": {
+    "status": {
+      "title": "API Status",
+      "connected": "Connected",
+      "disconnected": "Disconnected",
+      "checking": "Checking connection...",
+      "responseTime": "Response time",
+      "lastChecked": "Last checked",
+      "endpoint": "Endpoint",
+      "check": "Check Now",
+      "firstEndpointFailed": "First health endpoint failed, trying alternative...",
+      "secondEndpointFailed": "Second health endpoint failed, trying final alternative...",
+      "allEndpointsFailed": "All API health check attempts failed:",
+      "defaultVersion": "v1.0"
+    }
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "recognize": "Recognize",
+    "register": "Register",
+    "users": "Users",
+    "login": "Login",
+    "switchToArabic": "Switch to Arabic",
+    "switchToEnglish": "Switch to English"
+  },
+  "dashboard": {
+    "title": "Facial Recognition System",
+    "subtitle": "Secure, fast, and reliable facial recognition for identity verification",
+    "features": {
+      "register": {
+        "title": "Register Face",
+        "description": "Register a new user with facial recognition"
+        
+        
+      },
+      "recognize": {
+        "title": "Recognize Face",
+        "description": "Identify users with facial recognition"
+      },
+      "users": {
+        "title": "Manage Users",
+        "description": "View and manage all registered users"
+      },
+      "accessButton": "Access"
+    },
+    "status": {
+      "title": "System Status",
+      "api": "API Status",
+      "users": "Registered Users",
+      "recognition": "Recognition Service",
+      "online": "Online",
+      "active": "Active",
+      "running": "Running"
+    }
+  }
+} 

@@ -1,0 +1,214 @@
+2025-04-30 22:41:57.704 | INFO     | app.api:startup_event:51 - Initializing database...
+2025-04-30 22:41:57.705 | INFO     | services.database:init_db:64 - Database schema initialized successfully
+2025-04-30 22:41:57.706 | INFO     | app.api:startup_event:53 - Application startup complete.
+2025-04-30 22:43:05.680 | INFO     | app.api:startup_event:51 - Initializing database...
+2025-04-30 22:43:05.684 | INFO     | services.database:init_db:64 - Database schema initialized successfully
+2025-04-30 22:43:05.685 | INFO     | app.api:startup_event:53 - Application startup complete.
+2025-04-30 22:48:43.442 | INFO     | app.api:startup_event:51 - Initializing database...
+2025-04-30 22:48:43.444 | INFO     | services.database:init_db:64 - Database schema initialized successfully
+2025-04-30 22:48:43.445 | INFO     | app.api:startup_event:53 - Application startup complete.
+2025-04-30 22:53:06.796 | INFO     | app.api:startup_event:51 - Initializing database...
+2025-04-30 22:53:06.796 | INFO     | app.api:startup_event:51 - Initializing database...
+2025-04-30 22:53:06.798 | INFO     | services.database:init_db:64 - Database schema initialized successfully
+2025-04-30 22:53:06.798 | INFO     | services.database:init_db:64 - Database schema initialized successfully
+2025-04-30 22:53:06.799 | INFO     | app.api:startup_event:53 - Application startup complete.
+2025-04-30 22:53:06.799 | INFO     | app.api:startup_event:53 - Application startup complete.
+2025-04-30 22:57:51.255 | INFO     | app.api:startup_event:52 - Initializing database...
+2025-04-30 22:57:51.257 | INFO     | services.database:init_db:65 - Database schema initialized successfully
+2025-04-30 22:57:51.258 | INFO     | app.api:startup_event:54 - Application startup complete.
+2025-04-30 22:58:13.922 | INFO     | app.api:startup_event:52 - Initializing database...
+2025-04-30 22:58:13.925 | INFO     | services.database:init_db:65 - Database schema initialized successfully
+2025-04-30 22:58:13.926 | INFO     | app.api:startup_event:54 - Application startup complete.
+2025-04-30 22:58:35.527 | INFO     | app.api:startup_event:52 - Initializing database...
+2025-04-30 22:58:35.529 | INFO     | services.database:init_db:65 - Database schema initialized successfully
+2025-04-30 22:58:35.530 | INFO     | app.api:startup_event:54 - Application startup complete.
+2025-04-30 22:59:08.749 | INFO     | app.api:startup_event:52 - Initializing database...
+2025-04-30 22:59:08.751 | INFO     | services.database:init_db:65 - Database schema initialized successfully
+2025-04-30 22:59:08.752 | INFO     | app.api:startup_event:54 - Application startup complete.
+2025-04-30 22:59:42.820 | INFO     | app.api:startup_event:52 - Initializing database...
+2025-04-30 22:59:42.821 | INFO     | services.database:init_db:65 - Database schema initialized successfully
+2025-04-30 22:59:42.822 | INFO     | app.api:startup_event:54 - Application startup complete.
+2025-04-30 23:00:07.190 | INFO     | app.api:startup_event:52 - Initializing database...
+2025-04-30 23:00:07.192 | INFO     | services.database:init_db:65 - Database schema initialized successfully
+2025-04-30 23:00:07.193 | INFO     | app.api:startup_event:54 - Application startup complete.
+2025-04-30 23:00:30.496 | INFO     | app.api:startup_event:52 - Initializing database...
+2025-04-30 23:00:30.498 | INFO     | services.database:init_db:65 - Database schema initialized successfully
+2025-04-30 23:00:30.499 | INFO     | app.api:startup_event:54 - Application startup complete.
+2025-04-30 23:00:52.714 | INFO     | app.api:startup_event:52 - Initializing database...
+2025-04-30 23:00:52.716 | INFO     | services.database:init_db:65 - Database schema initialized successfully
+2025-04-30 23:00:52.717 | INFO     | app.api:startup_event:54 - Application startup complete.
+2025-04-30 23:01:12.545 | INFO     | app.api:startup_event:52 - Initializing database...
+2025-04-30 23:01:12.547 | INFO     | services.database:init_db:65 - Database schema initialized successfully
+2025-04-30 23:01:12.547 | INFO     | app.api:startup_event:54 - Application startup complete.
+2025-04-30 23:01:38.811 | INFO     | app.api:startup_event:52 - Initializing database...
+2025-04-30 23:01:38.813 | INFO     | services.database:init_db:65 - Database schema initialized successfully
+2025-04-30 23:01:38.813 | INFO     | app.api:startup_event:54 - Application startup complete.
+2025-04-30 23:01:59.314 | INFO     | app.api:startup_event:52 - Initializing database...
+2025-04-30 23:01:59.315 | INFO     | services.database:init_db:65 - Database schema initialized successfully
+2025-04-30 23:01:59.316 | INFO     | app.api:startup_event:54 - Application startup complete.
+2025-04-30 23:02:20.681 | INFO     | app.api:startup_event:52 - Initializing database...
+2025-04-30 23:02:20.684 | INFO     | services.database:init_db:65 - Database schema initialized successfully
+2025-04-30 23:02:20.686 | INFO     | app.api:startup_event:54 - Application startup complete.
+2025-04-30 23:03:44.082 | INFO     | app.api:startup_event:52 - Initializing database...
+2025-04-30 23:03:44.083 | INFO     | services.database:init_db:65 - Database schema initialized successfully
+2025-04-30 23:03:44.084 | INFO     | app.api:startup_event:54 - Application startup complete.
+2025-04-30 23:04:16.640 | ERROR    | services.database:get_db_connection:37 - Database error: no such column: metadata
+2025-04-30 23:04:16.642 | ERROR    | services.database:get_all_face_encodings:149 - Error retrieving face encodings: no such column: metadata
+2025-04-30 23:04:16.702 | ERROR    | services.database:get_db_connection:37 - Database error: no such column: metadata
+2025-04-30 23:04:16.704 | ERROR    | services.database:get_all_face_encodings:149 - Error retrieving face encodings: no such column: metadata
+2025-04-30 23:05:57.483 | INFO     | app.api:startup_event:52 - Initializing database...
+2025-04-30 23:05:57.486 | INFO     | services.database:init_db:65 - Database schema initialized successfully
+2025-04-30 23:05:57.488 | INFO     | app.api:startup_event:54 - Application startup complete.
+2025-04-30 23:06:33.443 | ERROR    | services.database:get_db_connection:37 - Database error: no such column: metadata
+2025-04-30 23:06:33.444 | ERROR    | services.database:get_all_face_encodings:149 - Error retrieving face encodings: no such column: metadata
+2025-04-30 23:06:33.457 | ERROR    | services.database:get_db_connection:37 - Database error: no such column: metadata
+2025-04-30 23:06:33.459 | ERROR    | services.database:get_all_face_encodings:149 - Error retrieving face encodings: no such column: metadata
+2025-04-30 23:07:12.049 | INFO     | app.api:startup_event:52 - Initializing database...
+2025-04-30 23:07:12.382 | INFO     | services.database:init_db:65 - Database schema initialized successfully
+2025-04-30 23:07:12.473 | INFO     | app.api:startup_event:54 - Application startup complete.
+2025-04-30 23:08:09.576 | INFO     | utils.image_processing:save_image_file:150 - Image saved to uploads\4d8ac30e-1b00-487b-b4b9-70f9e7a622ba.jpg
+2025-04-30 23:08:09.584 | INFO     | services.database:store_face_encoding:105 - User Abdel Hamed Reda registered with ID 1
+2025-04-30 23:08:09.763 | INFO     | services.database:update_user_metadata:280 - Updated metadata for user 1
+2025-04-30 23:08:28.365 | INFO     | services.database:find_matching_face:230 - Face match found for user Abdel Hamed Reda with confidence 0.60
+2025-04-30 23:08:37.395 | INFO     | services.database:find_matching_face:233 - No match found. Best confidence was 0.17 (below threshold)
+2025-04-30 23:08:49.614 | INFO     | services.database:find_matching_face:233 - No match found. Best confidence was 0.42 (below threshold)
+2025-04-30 23:08:58.851 | INFO     | services.database:find_matching_face:233 - No match found. Best confidence was 0.12 (below threshold)
+2025-04-30 23:09:06.356 | INFO     | services.database:find_matching_face:233 - No match found. Best confidence was 0.15 (below threshold)
+2025-04-30 23:09:17.302 | INFO     | services.database:find_matching_face:230 - Face match found for user Abdel Hamed Reda with confidence 0.58
+2025-04-30 23:09:27.042 | INFO     | services.database:find_matching_face:230 - Face match found for user Abdel Hamed Reda with confidence 0.64
+2025-04-30 23:09:36.794 | INFO     | services.database:find_matching_face:230 - Face match found for user Abdel Hamed Reda with confidence 0.67
+2025-04-30 23:09:47.189 | INFO     | services.database:find_matching_face:230 - Face match found for user Abdel Hamed Reda with confidence 0.55
+2025-04-30 23:09:56.502 | INFO     | services.database:find_matching_face:230 - Face match found for user Abdel Hamed Reda with confidence 0.66
+2025-04-30 23:10:06.722 | INFO     | services.database:find_matching_face:230 - Face match found for user Abdel Hamed Reda with confidence 0.46
+2025-04-30 23:10:33.031 | INFO     | utils.image_processing:save_image_file:150 - Image saved to uploads\59be784e-7810-4e9b-a680-a1f5b4c473f5.jpg
+2025-04-30 23:10:33.034 | INFO     | services.database:store_face_encoding:105 - User sdlcmklsk registered with ID 2
+2025-04-30 23:10:33.188 | INFO     | services.database:update_user_metadata:280 - Updated metadata for user 2
+2025-04-30 23:10:43.444 | INFO     | services.database:find_matching_face:230 - Face match found for user sdlcmklsk with confidence 1.00
+2025-04-30 23:10:51.742 | INFO     | services.database:find_matching_face:233 - No match found. Best confidence was 0.26 (below threshold)
+2025-04-30 23:10:59.391 | INFO     | services.database:find_matching_face:233 - No match found. Best confidence was 0.42 (below threshold)
+2025-04-30 23:11:07.861 | INFO     | services.database:find_matching_face:230 - Face match found for user Abdel Hamed Reda with confidence 0.61
+2025-04-30 23:11:19.982 | INFO     | services.database:find_matching_face:230 - Face match found for user Abdel Hamed Reda with confidence 0.54
+2025-04-30 23:11:29.024 | INFO     | services.database:find_matching_face:230 - Face match found for user Abdel Hamed Reda with confidence 0.54
+2025-04-30 23:35:15.460 | INFO     | app.api:startup_event:52 - Initializing database...
+2025-04-30 23:35:15.888 | INFO     | services.database:init_db:65 - Database schema initialized successfully
+2025-04-30 23:35:15.923 | INFO     | app.api:startup_event:54 - Application startup complete.
+2025-04-30 23:36:46.065 | INFO     | utils.image_processing:save_image_file:150 - Image saved to uploads\d5017c81-7a24-4eda-a8a6-8df093073781.jpg
+2025-04-30 23:36:46.776 | INFO     | services.database:store_face_encoding:105 - User Abdel Hamed Reda registered with ID 1
+2025-04-30 23:36:46.897 | INFO     | services.database:update_user_metadata:280 - Updated metadata for user 1
+2025-04-30 23:37:02.736 | INFO     | services.database:find_matching_face:233 - No match found. Best confidence was 0.15 (below threshold)
+2025-04-30 23:37:13.771 | INFO     | services.database:find_matching_face:233 - No match found. Best confidence was 0.18 (below threshold)
+2025-04-30 23:37:27.486 | INFO     | services.database:find_matching_face:230 - Face match found for user Abdel Hamed Reda with confidence 0.66
+2025-04-30 23:37:37.838 | INFO     | services.database:find_matching_face:230 - Face match found for user Abdel Hamed Reda with confidence 0.60
+2025-04-30 23:37:48.742 | INFO     | services.database:find_matching_face:230 - Face match found for user Abdel Hamed Reda with confidence 0.58
+2025-04-30 23:37:57.104 | INFO     | services.database:find_matching_face:230 - Face match found for user Abdel Hamed Reda with confidence 0.53
+2025-04-30 23:38:08.270 | INFO     | services.database:find_matching_face:230 - Face match found for user Abdel Hamed Reda with confidence 0.59
+2025-04-30 23:38:17.897 | INFO     | services.database:find_matching_face:233 - No match found. Best confidence was 0.15 (below threshold)
+2025-04-30 23:38:27.813 | INFO     | services.database:find_matching_face:233 - No match found. Best confidence was 0.12 (below threshold)
+2025-04-30 23:38:35.742 | INFO     | services.database:find_matching_face:230 - Face match found for user Abdel Hamed Reda with confidence 0.54
+2025-04-30 23:38:45.598 | INFO     | services.database:find_matching_face:230 - Face match found for user Abdel Hamed Reda with confidence 0.64
+2025-04-30 23:38:55.599 | INFO     | services.database:find_matching_face:230 - Face match found for user Abdel Hamed Reda with confidence 0.46
+2025-04-30 23:45:00.462 | INFO     | services.database:find_matching_face:233 - No match found. Best confidence was 0.17 (below threshold)
+2025-04-30 23:45:09.467 | INFO     | services.database:find_matching_face:233 - No match found. Best confidence was 0.15 (below threshold)
+2025-04-30 23:45:17.012 | INFO     | services.database:find_matching_face:230 - Face match found for user Abdel Hamed Reda with confidence 1.00
+2025-04-30 23:45:28.416 | INFO     | services.database:find_matching_face:233 - No match found. Best confidence was 0.42 (below threshold)
+2025-04-30 23:45:38.490 | INFO     | services.database:find_matching_face:230 - Face match found for user Abdel Hamed Reda with confidence 0.55
+2025-04-30 23:45:47.332 | INFO     | services.database:find_matching_face:230 - Face match found for user Abdel Hamed Reda with confidence 0.59
+2025-04-30 23:45:56.258 | INFO     | services.database:find_matching_face:230 - Face match found for user Abdel Hamed Reda with confidence 0.54
+2025-04-30 23:46:03.293 | WARNING  | utils.image_processing:detect_and_extract_face:113 - No faces detected in the image
+2025-04-30 23:46:03.294 | WARNING  | app.api:recognize_face:171 - Recognition validation error: No faces detected in the image
+2025-04-30 23:46:12.576 | WARNING  | utils.image_processing:detect_and_extract_face:113 - No faces detected in the image
+2025-04-30 23:46:12.578 | WARNING  | app.api:recognize_face:171 - Recognition validation error: No faces detected in the image
+2025-04-30 23:46:22.443 | INFO     | services.database:find_matching_face:230 - Face match found for user Abdel Hamed Reda with confidence 0.46
+2025-04-30 23:46:33.140 | WARNING  | utils.image_processing:detect_and_extract_face:113 - No faces detected in the image
+2025-04-30 23:46:33.142 | WARNING  | app.api:recognize_face:171 - Recognition validation error: No faces detected in the image
+2025-04-30 23:46:41.920 | INFO     | services.database:find_matching_face:230 - Face match found for user Abdel Hamed Reda with confidence 0.53
+2025-04-30 23:46:50.436 | INFO     | services.database:find_matching_face:230 - Face match found for user Abdel Hamed Reda with confidence 0.67
+2025-04-30 23:47:00.654 | INFO     | services.database:find_matching_face:230 - Face match found for user Abdel Hamed Reda with confidence 0.51
+2025-04-30 23:47:15.074 | INFO     | services.database:find_matching_face:233 - No match found. Best confidence was 0.15 (below threshold)
+2025-05-01 01:23:49.872 | INFO     | app.api:startup_event:52 - Initializing database...
+2025-05-01 01:23:49.902 | INFO     | services.database:init_db:65 - Database schema initialized successfully
+2025-05-01 01:23:49.907 | INFO     | app.api:startup_event:54 - Application startup complete.
+2025-05-01 01:42:01.572 | WARNING  | utils.image_processing:detect_and_extract_face:113 - No faces detected in the image
+2025-05-01 01:42:01.574 | WARNING  | app.api:recognize_face:171 - Recognition validation error: No faces detected in the image
+2025-05-01 01:42:18.585 | INFO     | services.database:find_matching_face:230 - Face match found for user Abdel Hamed Reda with confidence 0.54
+2025-05-01 01:42:32.399 | INFO     | services.database:find_matching_face:230 - Face match found for user Abdel Hamed Reda with confidence 1.00
+2025-05-01 01:44:16.781 | INFO     | app.api:startup_event:52 - Initializing database...
+2025-05-01 01:44:17.139 | INFO     | services.database:init_db:65 - Database schema initialized successfully
+2025-05-01 01:44:17.148 | INFO     | app.api:startup_event:54 - Application startup complete.
+2025-05-01 02:37:58.442 | INFO     | utils.image_processing:save_image_file:150 - Image saved to uploads\c406d224-c18d-4169-9b26-d2cab3929e50.jpg
+2025-05-01 02:38:01.536 | INFO     | services.database:store_face_encoding:105 - User Abdel Hamed Reda registered with ID 1
+2025-05-01 02:38:01.737 | INFO     | services.database:update_user_metadata:280 - Updated metadata for user 1
+2025-05-01 02:38:23.384 | INFO     | services.database:find_matching_face:230 - Face match found for user Abdel Hamed Reda with confidence 0.50
+2025-05-01 02:38:38.244 | INFO     | services.database:find_matching_face:230 - Face match found for user Abdel Hamed Reda with confidence 0.64
+2025-05-01 02:39:22.269 | INFO     | services.database:find_matching_face:230 - Face match found for user Abdel Hamed Reda with confidence 0.64
+2025-05-01 02:39:51.897 | INFO     | services.database:find_matching_face:230 - Face match found for user Abdel Hamed Reda with confidence 0.60
+2025-05-01 16:06:35.839 | INFO     | app.api:startup_event:52 - Initializing database...
+2025-05-01 16:06:35.849 | INFO     | services.database:init_db:65 - Database schema initialized successfully
+2025-05-01 16:06:35.850 | INFO     | app.api:startup_event:54 - Application startup complete.
+2025-05-01 16:43:12.802 | INFO     | services.database:find_matching_face:230 - Face match found for user Abdel Hamed Reda with confidence 1.00
+2025-05-01 17:19:42.765 | INFO     | app.api:startup_event:52 - Initializing database...
+2025-05-01 17:19:43.017 | INFO     | services.database:init_db:65 - Database schema initialized successfully
+2025-05-01 17:19:43.018 | INFO     | app.api:startup_event:54 - Application startup complete.
+2025-05-01 17:20:57.059 | WARNING  | services.database:find_matching_face:208 - No registered users to compare against
+2025-05-01 17:21:20.645 | INFO     | utils.image_processing:save_image_file:150 - Image saved to uploads\ea483eae-bede-4f74-8864-b1254146a2ed.jpg
+2025-05-01 17:21:20.881 | INFO     | services.database:store_face_encoding:105 - User Abdel Hamed Reda registered with ID 1
+2025-05-01 17:21:21.009 | INFO     | services.database:update_user_metadata:280 - Updated metadata for user 1
+2025-05-01 17:21:49.313 | INFO     | services.database:find_matching_face:230 - Face match found for user Abdel Hamed Reda with confidence 0.51
+2025-05-01 17:22:03.493 | INFO     | services.database:find_matching_face:230 - Face match found for user Abdel Hamed Reda with confidence 0.66
+2025-05-01 17:22:36.921 | INFO     | services.database:find_matching_face:230 - Face match found for user Abdel Hamed Reda with confidence 1.00
+2025-05-01 17:24:55.144 | INFO     | services.database:find_matching_face:230 - Face match found for user Abdel Hamed Reda with confidence 1.00
+2025-05-01 17:25:18.438 | INFO     | services.database:find_matching_face:230 - Face match found for user Abdel Hamed Reda with confidence 0.66
+2025-05-01 17:43:34.373 | INFO     | app.api:startup_event:52 - Initializing database...
+2025-05-01 17:43:34.375 | INFO     | services.database:init_db:65 - Database schema initialized successfully
+2025-05-01 17:43:34.375 | INFO     | app.api:startup_event:54 - Application startup complete.
+2025-05-01 17:44:16.588 | INFO     | app.api:startup_event:52 - Initializing database...
+2025-05-01 17:44:16.591 | INFO     | services.database:init_db:65 - Database schema initialized successfully
+2025-05-01 17:44:16.592 | INFO     | app.api:startup_event:54 - Application startup complete.
+2025-05-01 17:53:29.086 | INFO     | app.api:startup_event:52 - Initializing database...
+2025-05-01 17:53:29.087 | INFO     | services.database:init_db:65 - Database schema initialized successfully
+2025-05-01 17:53:29.088 | INFO     | app.api:startup_event:54 - Application startup complete.
+2025-05-01 17:57:12.776 | INFO     | app.api:startup_event:52 - Initializing database...
+2025-05-01 17:57:12.789 | INFO     | services.database:init_db:65 - Database schema initialized successfully
+2025-05-01 17:57:12.856 | INFO     | app.api:startup_event:54 - Application startup complete.
+2025-05-01 18:02:35.746 | INFO     | app.api:startup_event:52 - Initializing database...
+2025-05-01 18:02:35.801 | INFO     | services.database:init_db:65 - Database schema initialized successfully
+2025-05-01 18:02:35.858 | INFO     | app.api:startup_event:54 - Application startup complete.
+2025-05-01 18:04:38.213 | INFO     | services.database:find_matching_face:230 - Face match found for user Abdel Hamed Reda with confidence 0.64
+2025-05-01 18:05:04.628 | INFO     | services.database:find_matching_face:233 - No match found. Best confidence was 0.17 (below threshold)
+2025-05-01 18:05:15.575 | INFO     | services.database:find_matching_face:230 - Face match found for user Abdel Hamed Reda with confidence 1.00
+2025-05-01 18:07:30.144 | INFO     | app.api:startup_event:52 - Initializing database...
+2025-05-01 18:07:30.145 | INFO     | services.database:init_db:65 - Database schema initialized successfully
+2025-05-01 18:07:30.147 | INFO     | app.api:startup_event:54 - Application startup complete.
+2025-05-01 18:07:55.528 | WARNING  | app.api:get_user_by_id:397 - User with ID 1 not found
+2025-05-01 18:08:17.071 | INFO     | app.api:startup_event:52 - Initializing database...
+2025-05-01 18:08:17.071 | INFO     | app.api:startup_event:52 - Initializing database...
+2025-05-01 18:08:17.072 | INFO     | services.database:init_db:65 - Database schema initialized successfully
+2025-05-01 18:08:17.072 | INFO     | services.database:init_db:65 - Database schema initialized successfully
+2025-05-01 18:08:17.073 | INFO     | app.api:startup_event:54 - Application startup complete.
+2025-05-01 18:08:17.073 | INFO     | app.api:startup_event:54 - Application startup complete.
+2025-05-01 18:21:16.768 | INFO     | app.api:startup_event:52 - Initializing database...
+2025-05-01 18:21:16.769 | INFO     | services.database:init_db:65 - Database schema initialized successfully
+2025-05-01 18:21:16.770 | INFO     | app.api:startup_event:54 - Application startup complete.
+2025-05-01 18:23:08.131 | INFO     | app.api:startup_event:52 - Initializing database...
+2025-05-01 18:23:08.133 | INFO     | services.database:init_db:65 - Database schema initialized successfully
+2025-05-01 18:23:08.134 | INFO     | app.api:startup_event:54 - Application startup complete.
+2025-05-01 18:23:53.718 | WARNING  | app.api:get_user_by_id:397 - User with ID 1 not found
+2025-05-01 18:23:53.730 | WARNING  | app.api:get_user_by_id:397 - User with ID 1 not found
+2025-05-01 18:23:58.338 | WARNING  | app.api:get_user_by_id:397 - User with ID 1 not found
+2025-05-01 18:23:58.356 | WARNING  | app.api:get_user_by_id:397 - User with ID 1 not found
+2025-05-01 18:24:09.992 | INFO     | services.database:find_matching_face:230 - Face match found for user Abdel Hamed Reda with confidence 0.64
+2025-05-01 18:24:19.300 | WARNING  | app.api:get_user_by_id:397 - User with ID 1 not found
+2025-05-01 18:24:19.312 | WARNING  | app.api:get_user_by_id:397 - User with ID 1 not found
+2025-05-01 18:24:51.981 | INFO     | utils.image_processing:save_image_file:150 - Image saved to uploads\22116f70-b9a7-463b-afd9-e1fb7b0da1ec.jpg
+2025-05-01 18:24:51.996 | INFO     | services.database:store_face_encoding:105 - User Oliver registered with ID 2
+2025-05-01 18:24:52.130 | INFO     | services.database:update_user_metadata:280 - Updated metadata for user 2
+2025-05-01 18:25:04.253 | INFO     | services.database:find_matching_face:230 - Face match found for user Oliver with confidence 1.00
+2025-05-01 18:42:42.760 | INFO     | app.api:startup_event:52 - Initializing database...
+2025-05-01 18:42:42.762 | INFO     | services.database:init_db:65 - Database schema initialized successfully
+2025-05-01 18:42:42.763 | INFO     | app.api:startup_event:54 - Application startup complete.
+2025-05-01 18:49:47.179 | INFO     | app.api:startup_event:52 - Initializing database...
+2025-05-01 18:49:47.561 | INFO     | services.database:init_db:65 - Database schema initialized successfully
+2025-05-01 18:49:47.563 | INFO     | app.api:startup_event:54 - Application startup complete.
+2025-05-01 18:54:48.196 | INFO     | app.api:startup_event:52 - Initializing database...
+2025-05-01 18:54:48.199 | INFO     | services.database:init_db:65 - Database schema initialized successfully
+2025-05-01 18:54:48.200 | INFO     | app.api:startup_event:54 - Application startup complete.

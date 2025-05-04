@@ -1,0 +1,52 @@
+<svg width="400" height="300" viewBox="0 0 400 300"
+    xmlns="http://www.w3.org/2000/svg">
+    <!-- Background -->
+    <rect x="0" y="0" width="400" height="300" fill="#f0f9ff" rx="10" ry="10" />
+
+    <!-- Face outline -->
+    <ellipse cx="200" cy="120" rx="70" ry="80" fill="#ffffff" stroke="#3b82f6" stroke-width="2" />
+
+    <!-- Face features -->
+    <circle cx="175" cy="100" r="10" fill="#1e40af" />
+    <circle cx="225" cy="100" r="10" fill="#1e40af" />
+    <path d="M180 150 C 190 160, 210 160, 220 150" fill="none" stroke="#1e40af" stroke-width="3" />
+
+    <!-- Recognition grid -->
+    <path d="M140 80 L 260 80" stroke="#3b82f6" stroke-width="1" stroke-dasharray="5,5" />
+    <path d="M140 100 L 260 100" stroke="#3b82f6" stroke-width="1" stroke-dasharray="5,5" />
+    <path d="M140 120 L 260 120" stroke="#3b82f6" stroke-width="1" stroke-dasharray="5,5" />
+    <path d="M140 140 L 260 140" stroke="#3b82f6" stroke-width="1" stroke-dasharray="5,5" />
+    <path d="M140 160 L 260 160" stroke="#3b82f6" stroke-width="1" stroke-dasharray="5,5" />
+
+    <path d="M150 70 L 150 170" stroke="#3b82f6" stroke-width="1" stroke-dasharray="5,5" />
+    <path d="M180 70 L 180 170" stroke="#3b82f6" stroke-width="1" stroke-dasharray="5,5" />
+    <path d="M210 70 L 210 170" stroke="#3b82f6" stroke-width="1" stroke-dasharray="5,5" />
+    <path d="M240 70 L 240 170" stroke="#3b82f6" stroke-width="1" stroke-dasharray="5,5" />
+
+    <!-- Facial landmarks -->
+    <circle cx="175" cy="100" r="2" fill="#ef4444" />
+    <circle cx="225" cy="100" r="2" fill="#ef4444" />
+    <circle cx="200" cy="120" r="2" fill="#ef4444" />
+    <circle cx="180" cy="150" r="2" fill="#ef4444" />
+    <circle cx="220" cy="150" r="2" fill="#ef4444" />
+    <circle cx="200" cy="90" r="2" fill="#ef4444" />
+    <circle cx="160" cy="110" r="2" fill="#ef4444" />
+    <circle cx="240" cy="110" r="2" fill="#ef4444" />
+
+    <!-- Recognition beams -->
+    <line x1="350" y1="80" x2="250" y2="100" stroke="#3b82f6" stroke-width="2" opacity="0.6" />
+    <line x1="350" y1="100" x2="220" y2="150" stroke="#3b82f6" stroke-width="2" opacity="0.6" />
+    <line x1="350" y1="120" x2="175" y2="100" stroke="#3b82f6" stroke-width="2" opacity="0.6" />
+    <line x1="350" y1="140" x2="200" y2="120" stroke="#3b82f6" stroke-width="2" opacity="0.6" />
+
+    <!-- Recognition result indicator -->
+    <rect x="325" y="60" width="50" height="100" fill="#ffffff" stroke="#3b82f6" stroke-width="2" rx="5" ry="5" />
+    <rect x="330" y="70" width="40" height="10" fill="#3b82f6" rx="2" ry="2" />
+    <rect x="330" y="90" width="40" height="10" fill="#3b82f6" rx="2" ry="2" />
+    <rect x="330" y="110" width="40" height="10" fill="#3b82f6" rx="2" ry="2" />
+    <rect x="330" y="130" width="30" height="10" fill="#3b82f6" rx="2" ry="2" />
+
+    <!-- Text -->
+    <text x="200" y="230" font-family="Arial" font-size="18" fill="#1e40af" text-anchor="middle" font-weight="bold">Facial Recognition</text>
+    <text x="200" y="255" font-family="Arial" font-size="14" fill="#3b82f6" text-anchor="middle">Identifying unique facial characteristics</text>
+</svg> 
