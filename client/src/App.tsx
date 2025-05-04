@@ -2,7 +2,7 @@ import { useRoutes } from "react-router-dom";
 import { routes } from "./utils/routeConfig";
 import { useLanguageDirection } from "./hooks/useLanguageDirection";
 import { AuthProvider } from "./contexts/AuthContext";
-import { Suspense, useEffect } from "react";
+import { Suspense } from "react";
 import { Toaster } from "react-hot-toast";
 import { useTranslation } from "react-i18next";
 import TranslationProvider from "./components/TranslationProvider";
@@ -25,7 +25,7 @@ const Loading = () => {
  * Main App component handling routing, authentication, and language direction
  */
 function App() {
-  const { i18n } = useTranslation();
+  useTranslation();
 
   // Handle language direction with custom hook
   useLanguageDirection();

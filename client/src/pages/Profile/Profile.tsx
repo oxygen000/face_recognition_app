@@ -47,6 +47,8 @@ const Profile: React.FC = () => {
     );
   }
 
+
+
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
       <header className="mb-8">
@@ -73,11 +75,10 @@ const Profile: React.FC = () => {
           <Card className="text-center p-6">
             <div className="mb-4">
               {user.avatar ? (
-                <img
-                  src={user.avatar}
-                  alt={user.name}
-                  className="w-32 h-32 rounded-full mx-auto border-4 border-white shadow-lg"
-                />
+              <div className="w-32 h-32 rounded-full mx-auto bg-blue-100 flex items-center justify-center text-blue-600 text-4xl font-bold border-4 border-white shadow-lg">
+              AD
+            </div>
+            
               ) : (
                 <div className="w-32 h-32 rounded-full mx-auto bg-blue-100 flex items-center justify-center text-blue-600 text-4xl font-bold border-4 border-white shadow-lg">
                   {user.name.charAt(0).toUpperCase()}
