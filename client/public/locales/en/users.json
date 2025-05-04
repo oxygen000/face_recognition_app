@@ -15,6 +15,41 @@
       "recent": "Active recently",
       "inactive": "Inactive",
       "unknown": "Unknown status"
-    }
-  }
+    },
+    "view": "View",
+    "delete": "Delete"
+  },
+  "userList": {
+    "title": "Registered Users",
+    "subtitle": "View and manage all registered users",
+    "loading": "Loading users...",
+    "error": "Failed to load users",
+    "retry": "Retry",
+    "searchPlaceholder": "Search users...",
+    "sortByName": "Sort by Name",
+    "sortByDate": "Sort by Date",
+    "sortByDept": "Department",
+    "registerNew": "Register New",
+    "showing": "Showing",
+    "of": "of",
+    "users": "users",
+    "noResults": "No results found",
+    "clearSearch": "Try clearing your search or using different keywords",
+    "noUsers": "No users registered",
+    "registerFirst": "Register your first user to get started with face recognition",
+    "refresh": "Refresh",
+    "loadMore": "Load More",
+    "matchingSearch": "matching",
+    "view": "View",
+    "delete": "Delete"
+  },
+  "deleteUser": {
+    "title": "Delete User",
+    "confirmation": "Are you sure you want to delete",
+    "warning": "This action cannot be undone.",
+    "confirm": "Delete"
+  },
+  "view": "View",
+  "delete": "Delete",
+  "failedToLoad": "Failed to load users"
 } 

@@ -42,30 +42,30 @@ export const API_CONFIG = {
 
   // Request concurrency limit
   CONCURRENCY_LIMIT: 4,
-  
+
   // Health check endpoint
   HEALTH_ENDPOINT: "/health",
-  
+
   // Connection check interval in milliseconds (every 30 seconds)
   CONNECTION_CHECK_INTERVAL: 30 * 1000,
-  
+
   // Fallback timeout for API operations in milliseconds
   FALLBACK_TIMEOUT: 5000,
-  
+
   // Error handling settings
   ERROR_HANDLING: {
     // Show detailed error messages to user
     SHOW_DETAILED_ERRORS: false,
-    
+
     // Log errors to console
     LOG_ERRORS: true,
-    
+
     // Track error metrics
     TRACK_ERRORS: true,
-    
+
     // Automatically retry failed operations
-    AUTO_RETRY: true
-  }
+    AUTO_RETRY: true,
+  },
 };
 
 // Authentication configuration
@@ -90,7 +90,7 @@ export const APP_CONFIG = {
 
   // Default language (support both English and Arabic)
   DEFAULT_LANGUAGE: "en",
-  
+
   // Available languages
   LANGUAGES: ["en", "ar"],
 
@@ -108,46 +108,46 @@ export const APP_CONFIG = {
 
   // Maximum recognition attempts
   MAX_RECOGNITION_ATTEMPTS: 3,
-  
+
   // Fail gracefully (show fallback UI) when backend is unavailable
   GRACEFUL_FAILURE: true,
-  
+
   // Webcam settings
   WEBCAM: {
     // Default width
     WIDTH: 500,
-    
+
     // Default height
     HEIGHT: 375,
-    
+
     // Default facing mode
     FACING_MODE: "user",
-    
+
     // Screenshot format
-    SCREENSHOT_FORMAT: "image/jpeg"
-  }
+    SCREENSHOT_FORMAT: "image/jpeg",
+  },
 };
 
 // Face recognition settings
 export const FACE_RECOGNITION_CONFIG = {
   // Multi-angle mode enabled by default
   MULTI_ANGLE_MODE: true,
-  
+
   // Number of angles to capture in multi-angle mode
   MULTI_ANGLE_COUNT: 3,
-  
+
   // Show real-time pose guidance
   SHOW_POSE_GUIDANCE: true,
-  
+
   // Confidence threshold for reliable recognition
   CONFIDENCE_THRESHOLD: 0.7,
-  
+
   // Pose thresholds for optimal recognition
   POSE_THRESHOLDS: {
-    YAW: 15,  // Maximum degrees left/right
+    YAW: 15, // Maximum degrees left/right
     PITCH: 15, // Maximum degrees up/down
-    ROLL: 10   // Maximum degrees tilt
-  }
+    ROLL: 10, // Maximum degrees tilt
+  },
 };
 
 // Experimental advanced settings
@@ -163,16 +163,16 @@ export const ADVANCED_CONFIG = {
 
   // Debug mode
   DEBUG_MODE: false,
-  
+
   // Performance optimizations
   PERFORMANCE: {
     // Use WebWorker for image processing when available
     USE_WEB_WORKER: true,
-    
+
     // Image processing optimizations
     OPTIMIZE_IMAGES: true,
-    
+
     // Cache images in memory
-    CACHE_IMAGES: true
-  }
+    CACHE_IMAGES: true,
+  },
 };

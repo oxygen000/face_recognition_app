@@ -67,8 +67,8 @@ const RegisterFace: React.FC = () => {
                   : "bg-gray-200 text-gray-700 hover:bg-gray-300"
               }`}
             >
-              <FiCamera className="mr-2" />
-              {t("method.webcam", "Use Webcam")}
+              <FiUpload className="mr-2" />
+                {t("method.webcam", "Use Webcam")}
             </button>
             <button
               onClick={() => setRegistrationMethod("upload")}
@@ -78,15 +78,16 @@ const RegisterFace: React.FC = () => {
                   : "bg-gray-200 text-gray-700 hover:bg-gray-300"
               }`}
             >
-              <FiUpload className="mr-2" />
-              {t("method.upload", "Upload Photo")}
+              <FiCamera className="mr-2" />
+              {t("method.webcam", "Use Webcam")}
             </button>
           </div>
 
           {registrationMethod === "webcam" ? (
-            <WebcamForm onSuccess={handleRegistrationSuccess} />
+          <UploadForm onSuccess={handleRegistrationSuccess} />
+
           ) : (
-            <UploadForm onSuccess={handleRegistrationSuccess} />
+            <WebcamForm onSuccess={handleRegistrationSuccess} />
           )}
         </div>
       </div>

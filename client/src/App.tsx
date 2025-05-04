@@ -6,6 +6,7 @@ import { Suspense } from "react";
 import { Toaster } from "react-hot-toast";
 import { useTranslation } from "react-i18next";
 import TranslationProvider from "./components/TranslationProvider";
+import { UserProvider } from "./contexts/UserContext";
 
 /**
  * Loading component shown during suspense
@@ -51,12 +52,14 @@ function App() {
   const routeElement = useRoutes(routes);
 
   return (
-    <Suspense fallback={<Loading />}>
-      <TranslationProvider namespaces={namespaces}>
-        <Toaster />
-        <AuthProvider>{routeElement}</AuthProvider>
-      </TranslationProvider>
-    </Suspense>
+    <UserProvider>
+      <Suspense fallback={<Loading />}>
+        <TranslationProvider namespaces={namespaces}>
+          <Toaster />
+          <AuthProvider>{routeElement}</AuthProvider>
+        </TranslationProvider>
+      </Suspense>
+    </UserProvider>
   );
 }
 

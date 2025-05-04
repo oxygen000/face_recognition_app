@@ -9,6 +9,13 @@
     "dateError": "خطأ في التاريخ",
     "loading": "جاري التحميل...",
     "authChecking": "جاري التحقق من المصادقة...",
+    "common": {
+      "authChecking": "جاري التحقق من المصادقة...",
+      "imageFormats": "PNG, JPG, JPEG",
+      "upTo": "حتى",
+      "processing": "جاري المعالجة...",
+      "removeImage": "إزالة الصورة"
+    },
     "dismiss": "إغلاق",
     "processing": "جاري المعالجة...",
     "removeImage": "إزالة الصورة",
@@ -27,6 +34,14 @@
     "save": "حفظ",
     "delete": "حذف",
     "edit": "تعديل",
-    "search": "بحث"
+    "search": "بحث",
+    "name": "الاسم",
+    "buttons": {
+      "back": "عودة",
+      "close": "إغلاق",
+      "cancel": "إلغاء",
+      "delete": "حذف",
+      "retry": "إعادة المحاولة"
+    }
   }
   

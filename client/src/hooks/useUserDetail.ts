@@ -99,6 +99,13 @@ function useUserDetail(userId: string | undefined) {
     }
   }, [userId, t]);
 
+  /**
+   * Refresh user data manually
+   */
+  const refreshUser = useCallback(() => {
+    fetchUser();
+  }, [fetchUser]);
+
   // Fetch user on mount or when userId changes
   useEffect(() => {
     fetchUser();
@@ -111,6 +118,7 @@ function useUserDetail(userId: string | undefined) {
     errorMessage,
     fetchUser,
     deleteUser,
+    refreshUser,
   };
 }
 

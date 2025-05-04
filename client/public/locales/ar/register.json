@@ -6,6 +6,13 @@
     "image": "صورة الوجه",
     "submit": "تسجيل",
     "success": "تم تسجيل {{name}} بنجاح في النظام!",
+    "register": {
+      "form": {
+        "departmentPlaceholder": "أدخل القسم",
+        "role": "الدور:",
+        "rolePlaceholder": "أدخل الدور"
+      }
+    },
     "form": {
       "name": "الاسم:",
       "namePlaceholder": "أدخل اسمك",

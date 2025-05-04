@@ -18,7 +18,7 @@ if %ERRORLEVEL% EQU 2 (
 )
 
 REM Start backend in a new window with optimized settings
-start cmd /k "cd backend/src && set USE_CNN_MODEL=%USE_CNN_MODEL% && set PERFORMANCE_MODE=%PERFORMANCE_MODE% && python main.py"
+start cmd /k "cd backend && set USE_CNN_MODEL=%USE_CNN_MODEL% && set PERFORMANCE_MODE=%PERFORMANCE_MODE% && python main.py"
 REM Wait a bit for backend to initialize
 timeout /t 5
 

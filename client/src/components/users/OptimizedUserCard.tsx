@@ -8,6 +8,8 @@ import {
   FiPhone,
   FiActivity,
   FiAward,
+  FiUser,
+  FiEye,
 } from "react-icons/fi";
 import { User } from "../../types";
 import type { UserStatus } from "./types";
@@ -43,6 +45,8 @@ interface UserCardProps {
   onClick?: (user: User) => void;
   onEdit?: (user: User) => void;
   onDelete?: (user: User) => void;
+  selected?: boolean;
+  isDeleting?: boolean;
 }
 
 /**
@@ -67,6 +71,8 @@ const InfoItem = memo(
   )
 );
 
+InfoItem.displayName = "InfoItem";
+
 /**
  * Highly optimized UserCard component
  * Uses memoization and component splitting for maximum performance
@@ -81,6 +87,8 @@ const OptimizedUserCard: React.FC<UserCardProps> = memo(
     onClick,
     onEdit,
     onDelete,
+    selected = false,
+    isDeleting = false,
   }) => {
     // Cast user to ExtendedUser to access extended properties
     const userExtended = user as ExtendedUser;
@@ -117,25 +125,43 @@ const OptimizedUserCard: React.FC<UserCardProps> = memo(
       [activityStatus]
     );
 
+    // Format creation date once
+    const formattedCreationDate = useMemo(
+      () =>
+        userExtended.created_at ? formatDate(userExtended.created_at) : "",
+      [userExtended.created_at]
+    );
+
     // Event handlers - memoizing to prevent rerenders
     const handleClick = useMemo(
-      () => (onClick ? () => onClick(userExtended) : undefined),
+      () =>
+        onClick
+          ? (e: React.MouseEvent) => {
+              e.preventDefault();
+              e.stopPropagation();
+              onClick(userExtended);
+            }
+          : undefined,
       [onClick, userExtended]
     );
+
     const handleEdit = useMemo(
       () =>
         onEdit
           ? (e: React.MouseEvent) => {
+              e.preventDefault();
               e.stopPropagation();
               onEdit(userExtended);
             }
           : undefined,
       [onEdit, userExtended]
     );
+
     const handleDelete = useMemo(
       () =>
         onDelete
           ? (e: React.MouseEvent) => {
+              e.preventDefault();
               e.stopPropagation();
               onDelete(userExtended);
             }
@@ -143,22 +169,46 @@ const OptimizedUserCard: React.FC<UserCardProps> = memo(
       [onDelete, userExtended]
     );
 
+    const viewDetails = useMemo(
+      () =>
+        onClick
+          ? (e: React.MouseEvent) => {
+              e.preventDefault();
+              e.stopPropagation();
+              onClick(userExtended);
+            }
+          : undefined,
+      [onClick, userExtended]
+    );
+
+    // Compute card classes
+    const cardClasses = useMemo(() => {
+      let classes = `bg-white rounded-lg shadow-sm hover:shadow-md 
+        transition-all duration-200 border ${
+          selected ? "border-blue-400 ring-2 ring-blue-200" : "border-gray-100"
+        }
+        ${onClick ? "cursor-pointer hover:translate-y-[-2px]" : ""} 
+        ${isDeleting ? "opacity-50 pointer-events-none" : ""}
+        ${className}`;
+      return classes;
+    }, [className, onClick, selected, isDeleting]);
+
     // Render compact card
     if (compact) {
       return (
         <div
-          className={`bg-white rounded-lg shadow-sm hover:shadow-md 
-          transition-all duration-200 border border-gray-100 p-3
-          ${onClick ? "cursor-pointer hover:translate-y-[-2px]" : ""} 
-          ${className}`}
+          className={cardClasses}
           onClick={handleClick}
+          role="button"
+          tabIndex={0}
+          aria-label={`User card for ${userName}`}
         >
-          <div className="flex items-center">
-            <div className="relative">
+          <div className="flex items-center p-3">
+            <div className="relative flex-shrink-0">
               <img
                 src={userImageUrl}
                 alt={userName}
-                className="mr-3 w-10 h-10 rounded-full object-cover"
+                className="mr-3 w-12 h-12 rounded-full object-cover border-2 border-gray-100"
                 onError={(e) => {
                   // Set a default image if loading fails
                   (
@@ -166,62 +216,71 @@ const OptimizedUserCard: React.FC<UserCardProps> = memo(
                   ).src = `${apiUrl}/static/default-avatar.png`;
                 }}
               />
+              {userExtended.status && (
+                <span
+                  className={`absolute bottom-0 right-0 block h-3 w-3 rounded-full ring-2 ring-white ${getUserStatusColor(
+                    userExtended.status
+                  )}`}
+                />
+              )}
             </div>
 
             <div className="min-w-0 flex-1">
               <h3 className="text-base font-semibold text-gray-900 truncate">
                 {userName}
+                {userExtended.employee_id && (
+                  <span className="text-xs font-normal text-gray-500 ml-2">
+                    ({userExtended.employee_id})
+                  </span>
+                )}
               </h3>
-              <div className="flex items-center flex-wrap gap-1">
+              <div className="flex items-center flex-wrap gap-1 mt-1">
                 {userRole && (
                   <Badge variant="primary" size="sm" rounded>
                     {userRole}
                   </Badge>
                 )}
-                {userExtended.status && (
-                  <Badge
-                    variant="secondary"
-                    size="sm"
-                    rounded
-                    className={getUserStatusColor(userExtended.status)}
-                  >
-                    {userExtended.status}
+                {userDepartment && (
+                  <Badge variant="success" size="sm" rounded>
+                    {userDepartment}
                   </Badge>
                 )}
+                <span className="text-xs text-gray-500 ml-auto flex items-center">
+                  <FiClock className="inline mr-1" size={12} />
+                  {formattedCreationDate}
+                </span>
               </div>
             </div>
 
             {/* Actions */}
-            {(onEdit || onDelete) && (
-              <div className="flex ml-2 space-x-1">
-                {onEdit && (
-                  <Tooltip content={t("edit", "Edit")}>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      icon={FiEdit2}
-                      onClick={handleEdit}
-                      aria-label={t("edit", "Edit")}
-                    >
-                      {""}
-                    </Button>
-                  </Tooltip>
-                )}
-                {onDelete && (
-                  <Tooltip content={t("delete", "Delete")}>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      icon={FiTrash2}
-                      onClick={handleDelete}
-                      aria-label={t("delete", "Delete")}
-                    >
-                      {""}
-                    </Button>
-                  </Tooltip>
-                )}
-              </div>
-            )}
+            <div className="flex ml-2 space-x-1">
+              {onClick && (
+                <Tooltip content={t("view", "View details")}>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    icon={FiEye}
+                    onClick={viewDetails}
+                    aria-label={t("view", "View details")}
+                  >
+                    {""}
+                  </Button>
+                </Tooltip>
+              )}
+              {onDelete && (
+                <Tooltip content={t("delete", "Delete")}>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    icon={FiTrash2}
+                    onClick={handleDelete}
+                    aria-label={t("delete", "Delete")}
+                  >
+                    {""}
+                  </Button>
+                </Tooltip>
+              )}
+            </div>
           </div>
         </div>
       );
@@ -230,44 +289,12 @@ const OptimizedUserCard: React.FC<UserCardProps> = memo(
     // Full card variant
     return (
       <div
-        className={`bg-white rounded-lg shadow-sm hover:shadow-md 
-        transition-all duration-200 border border-gray-100 overflow-hidden
-        ${onClick ? "cursor-pointer hover:translate-y-[-2px]" : ""} 
-        ${className}`}
+        className={cardClasses}
         onClick={handleClick}
+        role="button"
+        tabIndex={0}
+        aria-label={`User card for ${userName}`}
       >
-        {/* Header with actions */}
-        {(onEdit || onDelete) && (
-          <div className="bg-gray-50 px-4 py-2 flex justify-end border-b border-gray-100">
-            {onEdit && (
-              <Tooltip content={t("edit", "Edit")}>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  icon={FiEdit2}
-                  onClick={handleEdit}
-                  aria-label={t("edit", "Edit")}
-                >
-                  {""}
-                </Button>
-              </Tooltip>
-            )}
-            {onDelete && (
-              <Tooltip content={t("delete", "Delete")}>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  icon={FiTrash2}
-                  onClick={handleDelete}
-                  aria-label={t("delete", "Delete")}
-                >
-                  {""}
-                </Button>
-              </Tooltip>
-            )}
-          </div>
-        )}
-
         {/* User content */}
         <div className="flex flex-col md:flex-row items-center md:items-start gap-4 p-4">
           {/* User avatar with activity status */}
@@ -283,6 +310,13 @@ const OptimizedUserCard: React.FC<UserCardProps> = memo(
                 ).src = `${apiUrl}/static/default-avatar.png`;
               }}
             />
+            {userExtended.status && (
+              <span
+                className={`absolute bottom-0 right-0 block h-4 w-4 rounded-full ring-2 ring-white ${getUserStatusColor(
+                  userExtended.status
+                )}`}
+              />
+            )}
           </div>
 
           {/* User info */}
@@ -339,7 +373,7 @@ const OptimizedUserCard: React.FC<UserCardProps> = memo(
                   content={
                     <>
                       {t("userCard.registered", "Registered")}:{" "}
-                      {formatDate(userExtended.created_at)}
+                      {formattedCreationDate}
                     </>
                   }
                 />
@@ -370,6 +404,36 @@ const OptimizedUserCard: React.FC<UserCardProps> = memo(
                 </>
               )}
             </div>
+          </div>
+
+          {/* Actions */}
+          <div className="flex md:flex-col gap-2 mt-2 md:mt-0">
+            {onClick && (
+              <Tooltip content={t("view", "View details")}>
+                <Button
+                  variant="primary"
+                  size="sm"
+                  icon={FiEye}
+                  onClick={viewDetails}
+                  aria-label={t("view", "View details")}
+                >
+                  {t("view", "View")}
+                </Button>
+              </Tooltip>
+            )}
+            {onDelete && (
+              <Tooltip content={t("delete", "Delete")}>
+                <Button
+                  variant="danger"
+                  size="sm"
+                  icon={FiTrash2}
+                  onClick={handleDelete}
+                  aria-label={t("delete", "Delete")}
+                >
+                  {t("delete", "Delete")}
+                </Button>
+              </Tooltip>
+            )}
           </div>
         </div>
       </div>

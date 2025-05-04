@@ -1,6 +1,13 @@
 {
     "title": "Register New Face",
     "description": "Complete the form below to register a new face in the system. Please upload a clear image with a single face.",
+    "register": {
+      "form": {
+        "departmentPlaceholder": "Enter department",
+        "role": "Role:",
+        "rolePlaceholder": "Enter role"
+      }
+    },
     "form": {
       "name": "Your Name:",
       "namePlaceholder": "Enter your name",

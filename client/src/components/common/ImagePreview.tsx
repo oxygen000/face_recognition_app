@@ -164,29 +164,7 @@ const ImagePreview: React.FC<ImagePreviewProps> = ({
           required={required}
         />
 
-        {!previewUrl && (
-          <button
-            type="button"
-            onClick={triggerFileInput}
-            className="mt-2 inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-          >
-            <svg
-              className="-ml-1 mr-2 h-5 w-5 text-gray-400"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M12 4v16m8-8H4"
-              />
-            </svg>
-            {t("common.selectImage", "Select Image")}
-          </button>
-        )}
+       
       </div>
     </div>
   );

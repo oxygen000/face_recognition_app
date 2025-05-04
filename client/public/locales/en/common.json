@@ -9,6 +9,13 @@
     "dateError": "Date error",
     "loading": "Loading...",
     "authChecking": "Checking authentication...",
+    "common": {
+      "authChecking": "Checking authentication...",
+      "imageFormats": "PNG, JPG, JPEG",
+      "upTo": "up to",
+      "processing": "Processing...",
+      "removeImage": "Remove Image"
+    },
     "dismiss": "Dismiss",
     "processing": "Processing...",
     "removeImage": "Remove Image",
@@ -27,6 +34,14 @@
     "save": "Save",
     "delete": "Delete",
     "edit": "Edit",
-    "search": "Search"
+    "search": "Search",
+    "name": "Name",
+    "buttons": {
+      "back": "Back",
+      "close": "Close",
+      "cancel": "Cancel",
+      "delete": "Delete",
+      "retry": "Retry"
+    }
   }
   

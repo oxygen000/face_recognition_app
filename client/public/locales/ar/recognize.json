@@ -10,6 +10,19 @@
     "submitButton": "التعرف على الوجه",
     "submit": "إرسال",
     "processing": "جاري المعالجة...",
+    "recognize": {
+      "submit": "إرسال",
+      "preview": "معاينة",
+      "processing": "جاري المعالجة...",
+      "result": {
+        "title": "تم التعرف على الوجه!",
+        "name": "الاسم:",
+        "id": "رقم الموظف:",
+        "department": "القسم:",
+        "role": "الدور:",
+        "confidence": "نسبة الثقة:"
+      }
+    },
     "result": {
       "title": "تم التعرف على الوجه!",
       "name": "الاسم:",

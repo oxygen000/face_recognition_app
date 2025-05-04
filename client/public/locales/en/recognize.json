@@ -10,6 +10,19 @@
     "submitButton": "Recognize Face",
     "submit": "Submit",
     "processing": "Processing...",
+    "recognize": {
+      "submit": "Submit",
+      "preview": "Preview",
+      "processing": "Processing...",
+      "result": {
+        "title": "Face Recognized!",
+        "name": "Name:",
+        "id": "Employee ID:",
+        "department": "Department:",
+        "role": "Role:",
+        "confidence": "Confidence:"
+      }
+    },
     "result": {
       "title": "Face Recognized!",
       "name": "Name:",

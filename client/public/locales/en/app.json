@@ -1,5 +1,8 @@
 {
     "title": "Smart ID Face",
+    "ministry": "Ministry of Interior",
+    "country": "Arab Republic of Egypt",
+    "name": "Face Recognition",
     "home": {
       "title": "Welcome to Face Recognition App",
       "description": "This application allows you to register and recognize faces using AI.",
